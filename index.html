@@ -1,0 +1,1258 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>BARA Kalbar</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="BARA — Basis Risiko Api Kalimantan Barat: peta pra, saat, dan pasca kebakaran hutan dan lahan pada sel 5 km.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+.leaflet-pane,
+.leaflet-tile,
+.leaflet-marker-icon,
+.leaflet-marker-shadow,
+.leaflet-tile-container,
+.leaflet-pane > svg,
+.leaflet-pane > canvas,
+.leaflet-zoom-box,
+.leaflet-image-layer,
+.leaflet-layer {
+	position: absolute;
+	left: 0;
+	top: 0;
+	}
+.leaflet-container {
+	overflow: hidden;
+	}
+.leaflet-tile,
+.leaflet-marker-icon,
+.leaflet-marker-shadow {
+	-webkit-user-select: none;
+	   -moz-user-select: none;
+	        user-select: none;
+	  -webkit-user-drag: none;
+	}
+.leaflet-tile::selection {
+	background: transparent;
+}
+.leaflet-safari .leaflet-tile {
+	image-rendering: -webkit-optimize-contrast;
+	}
+.leaflet-safari .leaflet-tile-container {
+	width: 1600px;
+	height: 1600px;
+	-webkit-transform-origin: 0 0;
+	}
+.leaflet-marker-icon,
+.leaflet-marker-shadow {
+	display: block;
+	}
+.leaflet-container .leaflet-overlay-pane svg {
+	max-width: none !important;
+	max-height: none !important;
+	}
+.leaflet-container .leaflet-marker-pane img,
+.leaflet-container .leaflet-shadow-pane img,
+.leaflet-container .leaflet-tile-pane img,
+.leaflet-container img.leaflet-image-layer,
+.leaflet-container .leaflet-tile {
+	max-width: none !important;
+	max-height: none !important;
+	width: auto;
+	padding: 0;
+	}
+.leaflet-container img.leaflet-tile {
+	mix-blend-mode: plus-lighter;
+}
+.leaflet-container.leaflet-touch-zoom {
+	-ms-touch-action: pan-x pan-y;
+	touch-action: pan-x pan-y;
+	}
+.leaflet-container.leaflet-touch-drag {
+	-ms-touch-action: pinch-zoom;
+	touch-action: none;
+	touch-action: pinch-zoom;
+}
+.leaflet-container.leaflet-touch-drag.leaflet-touch-zoom {
+	-ms-touch-action: none;
+	touch-action: none;
+}
+.leaflet-container {
+	-webkit-tap-highlight-color: transparent;
+}
+.leaflet-container a {
+	-webkit-tap-highlight-color: rgba(51, 181, 229, 0.4);
+}
+.leaflet-tile {
+	filter: inherit;
+	visibility: hidden;
+	}
+.leaflet-tile-loaded {
+	visibility: inherit;
+	}
+.leaflet-zoom-box {
+	width: 0;
+	height: 0;
+	-moz-box-sizing: border-box;
+	     box-sizing: border-box;
+	z-index: 800;
+	}
+.leaflet-overlay-pane svg {
+	-moz-user-select: none;
+	}
+.leaflet-pane         { z-index: 400; }
+.leaflet-tile-pane    { z-index: 200; }
+.leaflet-overlay-pane { z-index: 400; }
+.leaflet-shadow-pane  { z-index: 500; }
+.leaflet-marker-pane  { z-index: 600; }
+.leaflet-tooltip-pane   { z-index: 650; }
+.leaflet-popup-pane   { z-index: 700; }
+.leaflet-map-pane canvas { z-index: 100; }
+.leaflet-map-pane svg    { z-index: 200; }
+.leaflet-vml-shape {
+	width: 1px;
+	height: 1px;
+	}
+.lvml {
+	display: inline-block;
+	position: absolute;
+	}
+.leaflet-control {
+	position: relative;
+	z-index: 800;
+	pointer-events: visiblePainted; 
+	pointer-events: auto;
+	}
+.leaflet-top,
+.leaflet-bottom {
+	position: absolute;
+	z-index: 1000;
+	pointer-events: none;
+	}
+.leaflet-top {
+	top: 0;
+	}
+.leaflet-right {
+	right: 0;
+	}
+.leaflet-bottom {
+	bottom: 0;
+	}
+.leaflet-left {
+	left: 0;
+	}
+.leaflet-control {
+	float: left;
+	clear: both;
+	}
+.leaflet-right .leaflet-control {
+	float: right;
+	}
+.leaflet-top .leaflet-control {
+	margin-top: 10px;
+	}
+.leaflet-bottom .leaflet-control {
+	margin-bottom: 10px;
+	}
+.leaflet-left .leaflet-control {
+	margin-left: 10px;
+	}
+.leaflet-right .leaflet-control {
+	margin-right: 10px;
+	}
+.leaflet-fade-anim .leaflet-popup {
+	opacity: 0;
+	-webkit-transition: opacity 0.2s linear;
+	   -moz-transition: opacity 0.2s linear;
+	        transition: opacity 0.2s linear;
+	}
+.leaflet-fade-anim .leaflet-map-pane .leaflet-popup {
+	opacity: 1;
+	}
+.leaflet-zoom-animated {
+	-webkit-transform-origin: 0 0;
+	    -ms-transform-origin: 0 0;
+	        transform-origin: 0 0;
+	}
+svg.leaflet-zoom-animated {
+	will-change: transform;
+}
+.leaflet-zoom-anim .leaflet-zoom-animated {
+	-webkit-transition: -webkit-transform 0.25s cubic-bezier(0,0,0.25,1);
+	   -moz-transition:    -moz-transform 0.25s cubic-bezier(0,0,0.25,1);
+	        transition:         transform 0.25s cubic-bezier(0,0,0.25,1);
+	}
+.leaflet-zoom-anim .leaflet-tile,
+.leaflet-pan-anim .leaflet-tile {
+	-webkit-transition: none;
+	   -moz-transition: none;
+	        transition: none;
+	}
+.leaflet-zoom-anim .leaflet-zoom-hide {
+	visibility: hidden;
+	}
+.leaflet-interactive {
+	cursor: pointer;
+	}
+.leaflet-grab {
+	cursor: -webkit-grab;
+	cursor:    -moz-grab;
+	cursor:         grab;
+	}
+.leaflet-crosshair,
+.leaflet-crosshair .leaflet-interactive {
+	cursor: crosshair;
+	}
+.leaflet-popup-pane,
+.leaflet-control {
+	cursor: auto;
+	}
+.leaflet-dragging .leaflet-grab,
+.leaflet-dragging .leaflet-grab .leaflet-interactive,
+.leaflet-dragging .leaflet-marker-draggable {
+	cursor: move;
+	cursor: -webkit-grabbing;
+	cursor:    -moz-grabbing;
+	cursor:         grabbing;
+	}
+.leaflet-marker-icon,
+.leaflet-marker-shadow,
+.leaflet-image-layer,
+.leaflet-pane > svg path,
+.leaflet-tile-container {
+	pointer-events: none;
+	}
+.leaflet-marker-icon.leaflet-interactive,
+.leaflet-image-layer.leaflet-interactive,
+.leaflet-pane > svg path.leaflet-interactive,
+svg.leaflet-image-layer.leaflet-interactive path {
+	pointer-events: visiblePainted; 
+	pointer-events: auto;
+	}
+.leaflet-container {
+	background: #ddd;
+	outline-offset: 1px;
+	}
+.leaflet-container a {
+	color: #0078A8;
+	}
+.leaflet-zoom-box {
+	border: 2px dotted #38f;
+	background: rgba(255,255,255,0.5);
+	}
+.leaflet-container {
+	font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	font-size: 0.75rem;
+	line-height: 1.5;
+	}
+.leaflet-bar {
+	box-shadow: 0 1px 5px rgba(0,0,0,0.65);
+	border-radius: 4px;
+	}
+.leaflet-bar a {
+	background-color: #fff;
+	border-bottom: 1px solid #ccc;
+	width: 26px;
+	height: 26px;
+	line-height: 26px;
+	display: block;
+	text-align: center;
+	text-decoration: none;
+	color: black;
+	}
+.leaflet-bar a,
+.leaflet-control-layers-toggle {
+	background-position: 50% 50%;
+	background-repeat: no-repeat;
+	display: block;
+	}
+.leaflet-bar a:hover,
+.leaflet-bar a:focus {
+	background-color: #f4f4f4;
+	}
+.leaflet-bar a:first-child {
+	border-top-left-radius: 4px;
+	border-top-right-radius: 4px;
+	}
+.leaflet-bar a:last-child {
+	border-bottom-left-radius: 4px;
+	border-bottom-right-radius: 4px;
+	border-bottom: none;
+	}
+.leaflet-bar a.leaflet-disabled {
+	cursor: default;
+	background-color: #f4f4f4;
+	color: #bbb;
+	}
+.leaflet-touch .leaflet-bar a {
+	width: 30px;
+	height: 30px;
+	line-height: 30px;
+	}
+.leaflet-touch .leaflet-bar a:first-child {
+	border-top-left-radius: 2px;
+	border-top-right-radius: 2px;
+	}
+.leaflet-touch .leaflet-bar a:last-child {
+	border-bottom-left-radius: 2px;
+	border-bottom-right-radius: 2px;
+	}
+.leaflet-control-zoom-in,
+.leaflet-control-zoom-out {
+	font: bold 18px 'Lucida Console', Monaco, monospace;
+	text-indent: 1px;
+	}
+.leaflet-touch .leaflet-control-zoom-in, .leaflet-touch .leaflet-control-zoom-out  {
+	font-size: 22px;
+	}
+.leaflet-control-layers {
+	box-shadow: 0 1px 5px rgba(0,0,0,0.4);
+	background: #fff;
+	border-radius: 5px;
+	}
+.leaflet-control-layers-toggle {
+	width: 36px;
+	height: 36px;
+	}
+.leaflet-retina .leaflet-control-layers-toggle {
+	background-size: 26px 26px;
+	}
+.leaflet-touch .leaflet-control-layers-toggle {
+	width: 44px;
+	height: 44px;
+	}
+.leaflet-control-layers .leaflet-control-layers-list,
+.leaflet-control-layers-expanded .leaflet-control-layers-toggle {
+	display: none;
+	}
+.leaflet-control-layers-expanded .leaflet-control-layers-list {
+	display: block;
+	position: relative;
+	}
+.leaflet-control-layers-expanded {
+	padding: 6px 10px 6px 6px;
+	color: #333;
+	background: #fff;
+	}
+.leaflet-control-layers-scrollbar {
+	overflow-y: scroll;
+	overflow-x: hidden;
+	padding-right: 5px;
+	}
+.leaflet-control-layers-selector {
+	margin-top: 2px;
+	position: relative;
+	top: 1px;
+	}
+.leaflet-control-layers label {
+	display: block;
+	font-size: 13px;
+	font-size: 1.08333em;
+	}
+.leaflet-control-layers-separator {
+	height: 0;
+	border-top: 1px solid #ddd;
+	margin: 5px -10px 5px -6px;
+	}
+.leaflet-default-icon-path { 
+	}
+.leaflet-container .leaflet-control-attribution {
+	background: #fff;
+	background: rgba(255, 255, 255, 0.8);
+	margin: 0;
+	}
+.leaflet-control-attribution,
+.leaflet-control-scale-line {
+	padding: 0 5px;
+	color: #333;
+	line-height: 1.4;
+	}
+.leaflet-control-attribution a {
+	text-decoration: none;
+	}
+.leaflet-control-attribution a:hover,
+.leaflet-control-attribution a:focus {
+	text-decoration: underline;
+	}
+.leaflet-attribution-flag {
+	display: inline !important;
+	vertical-align: baseline !important;
+	width: 1em;
+	height: 0.6669em;
+	}
+.leaflet-left .leaflet-control-scale {
+	margin-left: 5px;
+	}
+.leaflet-bottom .leaflet-control-scale {
+	margin-bottom: 5px;
+	}
+.leaflet-control-scale-line {
+	border: 2px solid #777;
+	border-top: none;
+	line-height: 1.1;
+	padding: 2px 5px 1px;
+	white-space: nowrap;
+	-moz-box-sizing: border-box;
+	     box-sizing: border-box;
+	background: rgba(255, 255, 255, 0.8);
+	text-shadow: 1px 1px #fff;
+	}
+.leaflet-control-scale-line:not(:first-child) {
+	border-top: 2px solid #777;
+	border-bottom: none;
+	margin-top: -2px;
+	}
+.leaflet-control-scale-line:not(:first-child):not(:last-child) {
+	border-bottom: 2px solid #777;
+	}
+.leaflet-touch .leaflet-control-attribution,
+.leaflet-touch .leaflet-control-layers,
+.leaflet-touch .leaflet-bar {
+	box-shadow: none;
+	}
+.leaflet-touch .leaflet-control-layers,
+.leaflet-touch .leaflet-bar {
+	border: 2px solid rgba(0,0,0,0.2);
+	background-clip: padding-box;
+	}
+.leaflet-popup {
+	position: absolute;
+	text-align: center;
+	margin-bottom: 20px;
+	}
+.leaflet-popup-content-wrapper {
+	padding: 1px;
+	text-align: left;
+	border-radius: 12px;
+	}
+.leaflet-popup-content {
+	margin: 13px 24px 13px 20px;
+	line-height: 1.3;
+	font-size: 13px;
+	font-size: 1.08333em;
+	min-height: 1px;
+	}
+.leaflet-popup-content p {
+	margin: 17px 0;
+	margin: 1.3em 0;
+	}
+.leaflet-popup-tip-container {
+	width: 40px;
+	height: 20px;
+	position: absolute;
+	left: 50%;
+	margin-top: -1px;
+	margin-left: -20px;
+	overflow: hidden;
+	pointer-events: none;
+	}
+.leaflet-popup-tip {
+	width: 17px;
+	height: 17px;
+	padding: 1px;
+	margin: -10px auto 0;
+	pointer-events: auto;
+	-webkit-transform: rotate(45deg);
+	   -moz-transform: rotate(45deg);
+	    -ms-transform: rotate(45deg);
+	        transform: rotate(45deg);
+	}
+.leaflet-popup-content-wrapper,
+.leaflet-popup-tip {
+	background: white;
+	color: #333;
+	box-shadow: 0 3px 14px rgba(0,0,0,0.4);
+	}
+.leaflet-container a.leaflet-popup-close-button {
+	position: absolute;
+	top: 0;
+	right: 0;
+	border: none;
+	text-align: center;
+	width: 24px;
+	height: 24px;
+	font: 16px/24px Tahoma, Verdana, sans-serif;
+	color: #757575;
+	text-decoration: none;
+	background: transparent;
+	}
+.leaflet-container a.leaflet-popup-close-button:hover,
+.leaflet-container a.leaflet-popup-close-button:focus {
+	color: #585858;
+	}
+.leaflet-popup-scrolled {
+	overflow: auto;
+	}
+.leaflet-oldie .leaflet-popup-content-wrapper {
+	-ms-zoom: 1;
+	}
+.leaflet-oldie .leaflet-popup-tip {
+	width: 24px;
+	margin: 0 auto;
+	-ms-filter: "progid:DXImageTransform.Microsoft.Matrix(M11=0.70710678, M12=0.70710678, M21=-0.70710678, M22=0.70710678)";
+	filter: progid:DXImageTransform.Microsoft.Matrix(M11=0.70710678, M12=0.70710678, M21=-0.70710678, M22=0.70710678);
+	}
+.leaflet-oldie .leaflet-control-zoom,
+.leaflet-oldie .leaflet-control-layers,
+.leaflet-oldie .leaflet-popup-content-wrapper,
+.leaflet-oldie .leaflet-popup-tip {
+	border: 1px solid #999;
+	}
+.leaflet-div-icon {
+	background: #fff;
+	border: 1px solid #666;
+	}
+.leaflet-tooltip {
+	position: absolute;
+	padding: 6px;
+	background-color: #fff;
+	border: 1px solid #fff;
+	border-radius: 3px;
+	color: #222;
+	white-space: nowrap;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	pointer-events: none;
+	box-shadow: 0 1px 3px rgba(0,0,0,0.4);
+	}
+.leaflet-tooltip.leaflet-interactive {
+	cursor: pointer;
+	pointer-events: auto;
+	}
+.leaflet-tooltip-top:before,
+.leaflet-tooltip-bottom:before,
+.leaflet-tooltip-left:before,
+.leaflet-tooltip-right:before {
+	position: absolute;
+	pointer-events: none;
+	border: 6px solid transparent;
+	background: transparent;
+	content: "";
+	}
+.leaflet-tooltip-bottom {
+	margin-top: 6px;
+}
+.leaflet-tooltip-top {
+	margin-top: -6px;
+}
+.leaflet-tooltip-bottom:before,
+.leaflet-tooltip-top:before {
+	left: 50%;
+	margin-left: -6px;
+	}
+.leaflet-tooltip-top:before {
+	bottom: 0;
+	margin-bottom: -12px;
+	border-top-color: #fff;
+	}
+.leaflet-tooltip-bottom:before {
+	top: 0;
+	margin-top: -12px;
+	margin-left: -6px;
+	border-bottom-color: #fff;
+	}
+.leaflet-tooltip-left {
+	margin-left: -6px;
+}
+.leaflet-tooltip-right {
+	margin-left: 6px;
+}
+.leaflet-tooltip-left:before,
+.leaflet-tooltip-right:before {
+	top: 50%;
+	margin-top: -6px;
+	}
+.leaflet-tooltip-left:before {
+	right: 0;
+	margin-right: -12px;
+	border-left-color: #fff;
+	}
+.leaflet-tooltip-right:before {
+	left: 0;
+	margin-left: -12px;
+	border-right-color: #fff;
+	}
+@media print {
+	.leaflet-control {
+		-webkit-print-color-adjust: exact;
+		print-color-adjust: exact;
+		}
+	}
+</style>
+<style>
+/* Tata letak: kepala tipis berisi fase; panel kiri (pertanyaan -> angka -> lapisan -> daftar), peta mengisi sisa layar. */
+:root {
+  --bg: #f5f4f0; --surface: #ffffff; --sunk: #ecebe6; --line: #e1dfd8;
+  --ink: #0b0b0b; --ink2: #52514e; --ink3: #7d7c77;
+  --ember: #e2552b; --ember-ink: #b3261e; --ember-soft: #fde4dc;
+  --cool: #2a78d6; --ok: #138a5e; --warn: #b07800;
+  --cell0: #e7e5df; --map-bg: #dcdad3; --map-tiles: light; --hs: #c8102e;
+  --f-body: "Plus Jakarta Sans", "Segoe UI", system-ui, sans-serif;
+  --f-mono: "JetBrains Mono", ui-monospace, "Cascadia Mono", Consolas, monospace;
+  --r: 10px;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #121110; --surface: #1b1a18; --sunk: #24231f; --line: #33312c;
+  --ink: #f2f1ec; --ink2: #bdbab2; --ink3: #8d8a82;
+  --ember: #f0713f; --ember-ink: #ff8a5c; --ember-soft: #3a1f16;
+  --cool: #5598e7; --ok: #3cc28f; --warn: #e2a72e;
+  --cell0: #2b2a26; --map-bg: #191816; --map-tiles: dark; --hs: #ff6a3d; color-scheme: dark; } }
+:root[data-theme="dark"] {
+  --bg: #121110; --surface: #1b1a18; --sunk: #24231f; --line: #33312c;
+  --ink: #f2f1ec; --ink2: #bdbab2; --ink3: #8d8a82;
+  --ember: #f0713f; --ember-ink: #ff8a5c; --ember-soft: #3a1f16;
+  --cool: #5598e7; --ok: #3cc28f; --warn: #e2a72e;
+  --cell0: #2b2a26; --map-bg: #191816; --map-tiles: dark; --hs: #ff6a3d; color-scheme: dark; }
+
+*, *::before, *::after { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html, body { height: 100%; margin: 0; }
+body { background: var(--bg); color: var(--ink); font-family: var(--f-body); font-size: 14px; line-height: 1.5;
+  display: flex; flex-direction: column; -webkit-font-smoothing: antialiased; }
+button, select, input { font: inherit; color: inherit; }
+:focus-visible { outline: 2px solid var(--ember); outline-offset: 2px; }
+.num { font-variant-numeric: tabular-nums; }
+.mono { font-family: var(--f-mono); font-size: 12px; }
+
+/* ---- kepala ---- */
+.top { background: var(--surface); border-bottom: 1px solid var(--line); padding-block: 10px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
+  display: flex; flex-wrap: wrap; align-items: center; gap: 10px 28px; }
+.brand { display: flex; align-items: baseline; gap: 10px; min-width: 0; }
+.brand b { font-size: 26px; font-weight: 800; letter-spacing: 0.06em; line-height: 1; }
+.brand b i { font-style: normal; color: var(--ember); }
+.brand span { color: var(--ink2); font-size: 13px; }
+.phases { display: flex; gap: 4px; background: var(--sunk); border-radius: 999px; padding: 4px; flex-wrap: wrap; }
+.phases button { border: 0; background: transparent; padding: 6px 14px; border-radius: 999px; cursor: pointer;
+  display: flex; flex-direction: column; align-items: flex-start; line-height: 1.15; }
+.phases button small { font-size: 11px; color: var(--ink3); }
+.phases button b { font-weight: 700; font-size: 13.5px; }
+.phases button[aria-selected="true"] { background: var(--surface); box-shadow: 0 1px 2px rgb(0 0 0 / 0.12); }
+.phases button[aria-selected="true"] b { color: var(--ember-ink); }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; margin-left: auto; }
+.chip { font-size: 12px; padding: 3px 10px; border-radius: 999px; border: 1px solid var(--line); color: var(--ink2); white-space: nowrap; }
+.chip.proto { border-color: var(--ember); color: var(--ember-ink); font-weight: 600; }
+
+/* ---- isi ---- */
+.app { flex: 1; min-height: 0; display: grid; grid-template-columns: minmax(330px, 410px) minmax(0, 1fr); }
+.panel { overflow-y: auto; border-right: 1px solid var(--line); background: var(--bg);
+  padding-block: 18px 28px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: 18px;
+  display: flex; flex-direction: column; gap: 18px; min-width: 0; }
+.mapwrap { position: relative; min-height: 0; min-width: 0; }
+#map { position: absolute; inset: 0; background: var(--map-bg); }
+
+.q { display: flex; flex-direction: column; gap: 4px; }
+.q .eyebrow { font-size: 11px; letter-spacing: 0.09em; text-transform: uppercase; color: var(--ink3); font-weight: 600; }
+.q h1 { margin: 0; font-size: 22px; line-height: 1.2; font-weight: 800; text-wrap: balance; }
+.q p { margin: 0; color: var(--ink2); max-width: 60ch; }
+
+.kpis { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+.kpi { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 10px 11px; display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.kpi .v { font-size: 21px; font-weight: 800; line-height: 1.15; font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
+.kpi .v small { font-size: 12px; font-weight: 600; color: var(--ink2); }
+.kpi .l { font-size: 11.5px; color: var(--ink2); line-height: 1.3; }
+.kpi.hot { background: var(--ember-soft); border-color: transparent; }
+.kpi.hot .v { color: var(--ember-ink); }
+
+.sec { display: flex; flex-direction: column; gap: 8px; }
+.sec > h2 { margin: 0; font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink3); font-weight: 700; }
+.seg { display: flex; flex-wrap: wrap; gap: 6px; }
+.seg button { border: 1px solid var(--line); background: var(--surface); border-radius: 999px; padding: 5px 12px; cursor: pointer; font-size: 13px; }
+.seg button[aria-pressed="true"] { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+.row { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+select { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 6px 8px; max-width: 100%; }
+label.tog { display: inline-flex; gap: 6px; align-items: center; font-size: 13px; color: var(--ink2); cursor: pointer; }
+
+.legend { display: flex; flex-direction: column; gap: 6px; }
+.ramp { display: flex; height: 10px; border-radius: 3px; overflow: hidden; }
+.ramp span { flex: 1; }
+.ramp-l { display: flex; justify-content: space-between; font-size: 11px; color: var(--ink3); font-variant-numeric: tabular-nums; }
+.keys { display: flex; flex-wrap: wrap; gap: 4px 12px; font-size: 12px; color: var(--ink2); }
+.keys i { display: inline-block; width: 11px; height: 11px; border-radius: 2px; margin-right: 5px; vertical-align: -1px; }
+.biv { display: grid; grid-template-columns: auto auto; gap: 8px; align-items: center; font-size: 11.5px; color: var(--ink2); }
+.biv .g { display: grid; grid-template-columns: repeat(3, 16px); grid-template-rows: repeat(3, 16px); gap: 1px; }
+
+table { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+th { text-align: left; font-weight: 600; color: var(--ink3); font-size: 11px; letter-spacing: 0.04em; text-transform: uppercase; padding: 4px 6px; border-bottom: 1px solid var(--line); }
+td { padding: 6px; border-bottom: 1px solid var(--line); vertical-align: top; }
+td.n, th.n { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+tr.click { cursor: pointer; } tr.click:hover td { background: var(--sunk); }
+.tablewrap { overflow-x: auto; }
+.bar { height: 6px; border-radius: 3px; background: var(--ember); min-width: 1px; }
+
+.pill { display: inline-block; font-size: 10.5px; font-weight: 700; letter-spacing: 0.06em; padding: 2px 7px; border-radius: 4px; text-transform: uppercase; }
+.pill.hasil { background: color-mix(in srgb, var(--ok) 16%, transparent); color: var(--ok); }
+.pill.ilus { background: color-mix(in srgb, var(--warn) 18%, transparent); color: var(--warn); }
+.pill.asumsi { background: var(--sunk); color: var(--ink2); }
+.pill.pad { background: var(--ink); color: var(--bg); }
+.pill.aw { border: 1px dashed var(--ember); color: var(--ember-ink); }
+.pill.baru { background: var(--cool); color: #fff; }
+
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 12px; display: flex; flex-direction: column; gap: 8px; }
+.card h3 { margin: 0; font-size: 15px; display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+.card p { margin: 0; color: var(--ink2); font-size: 13px; }
+.btn { border: 1px solid var(--ink); background: var(--ink); color: var(--bg); border-radius: 8px; padding: 6px 12px; cursor: pointer; font-weight: 600; font-size: 13px; }
+.btn.ghost { background: transparent; color: var(--ink); border-color: var(--line); }
+.btn:disabled { opacity: 0.45; cursor: not-allowed; }
+.stats { display: grid; grid-template-columns: 1fr auto; gap: 3px 12px; font-size: 13px; }
+.stats dt { color: var(--ink2); } .stats dd { margin: 0; text-align: right; font-weight: 700; font-variant-numeric: tabular-nums; }
+.delta { color: var(--ok); }
+input[type="range"] { width: 100%; accent-color: var(--warn); }
+.note { font-size: 12px; color: var(--ink3); line-height: 1.45; }
+.foot { font-size: 11.5px; color: var(--ink3); border-top: 1px solid var(--line); padding-top: 12px; display: flex; flex-direction: column; gap: 4px; }
+
+/* kartu sel di atas peta */
+.info { position: absolute; z-index: 500; left: 12px; bottom: 26px; width: min(320px, calc(100% - 24px));
+  background: var(--surface); color: var(--ink); border: 1px solid var(--line); border-radius: var(--r);
+  box-shadow: 0 6px 20px rgb(0 0 0 / 0.18); padding: 12px 12px 10px; font-size: 13px; }
+.info h4 { margin: 0 28px 2px 0; font-size: 15px; }
+.info .sub { color: var(--ink2); font-size: 12px; margin-bottom: 6px; }
+.info .x { position: absolute; top: 6px; right: 6px; border: 0; background: transparent; cursor: pointer; font-size: 18px; line-height: 1; padding: 4px 8px; color: var(--ink2); }
+.mapnote { position: absolute; z-index: 500; top: 10px; right: 10px; max-width: min(300px, calc(100% - 70px)); font-size: 12px;
+  background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 6px 10px; color: var(--ink2); }
+.mapnote.ilus { border-color: var(--warn); color: var(--warn); font-weight: 700; }
+.drawhint { position: absolute; z-index: 500; top: 10px; left: 56px; right: 10px; max-width: 420px; background: var(--ink); color: var(--bg);
+  border-radius: 8px; padding: 8px 12px; font-size: 13px; display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+.drawhint .btn { background: var(--bg); color: var(--ink); border-color: var(--bg); }
+
+.loading { color: var(--ink2); }
+.err { color: var(--ember-ink); }
+
+/* Leaflet menyesuaikan tema */
+.leaflet-container { font-family: var(--f-body); background: var(--map-bg); }
+.leaflet-bar a, .leaflet-bar a:hover { background: var(--surface); color: var(--ink); border-bottom-color: var(--line); }
+.leaflet-control-attribution { background: color-mix(in srgb, var(--surface) 82%, transparent) !important; color: var(--ink2); }
+.leaflet-control-attribution a { color: var(--ink2); }
+.leaflet-tooltip { background: var(--surface); color: var(--ink); border-color: var(--line); }
+.leaflet-tooltip-top:before { border-top-color: var(--surface); }
+.leaflet-control-scale-line { background: color-mix(in srgb, var(--surface) 75%, transparent); color: var(--ink); border-color: var(--ink2); }
+
+@media (max-width: 860px) {
+  html, body { height: auto; }
+  body { display: block; }
+  .app { display: flex; flex-direction: column; }
+  .mapwrap { order: -1; height: 58vh; min-height: 320px; }
+  .panel { border-right: 0; overflow: visible; padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+  .chips { margin-left: 0; }
+  .info { position: static; width: auto; box-shadow: none; border-radius: 0; border-width: 1px 0; }
+  .infohost { position: relative; }
+}
+@media (max-width: 600px) {
+  .phases { display: grid; grid-template-columns: repeat(4, 1fr); width: 100%; }
+  .phases button { align-items: center; padding: 7px 4px; }
+  .phases button small { display: none; }
+  .brand span { font-size: 12px; }
+  .barc { display: none; }
+}
+.leaflet-container:focus-visible { outline-offset: -2px; }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
+</style>
+
+</head>
+<body>
+<header class="top">
+  <div class="brand"><b>BAR<i>A</i></b><span>Basis Risiko Api · Kalimantan Barat</span></div>
+  <nav class="phases" role="tablist" aria-label="Fase pengelolaan">
+    <button role="tab" id="tab-pra" data-fase="pra" aria-selected="true"><small>Sebelum musim</small><b>Pra</b></button>
+    <button role="tab" id="tab-saat" data-fase="saat" aria-selected="false"><small>Minggu ini</small><b>Saat</b></button>
+    <button role="tab" id="tab-pasca" data-fase="pasca" aria-selected="false"><small>Sesudah</small><b>Pasca</b></button>
+    <button role="tab" id="tab-simulasi" data-fase="simulasi" aria-selected="false"><small>Bagaimana kalau</small><b>Simulasi</b></button>
+  </nav>
+  <div class="chips" id="chips"><span class="chip">Memuat data…</span></div>
+</header>
+
+<div class="app">
+  <aside class="panel" id="panel" aria-live="polite"><p class="loading">Memuat 6.292 sel 5 km Kalimantan Barat…</p></aside>
+  <div class="mapwrap">
+    <div id="map" role="region" aria-label="Peta sel 5 km Kalimantan Barat"></div>
+    <div id="mapnote" class="mapnote" hidden></div>
+    <div id="drawhint" class="drawhint" hidden></div>
+    <div class="infohost"><div id="info" class="info" hidden></div></div>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
+<script>
+"use strict";
+// ======================================================================================
+// BARA — membaca data/ hasil s11_dashboard.py (versi publik atau internal). Tanpa server.
+// ======================================================================================
+const DATA = "data/";
+const BLN = ["Jan","Feb","Mar","Apr","Mei","Jun","Jul","Agu","Sep","Okt","Nov","Des"];
+const nf = (x, d = 0) => x == null || Number.isNaN(x) ? "–" : Number(x).toLocaleString("id-ID", { maximumFractionDigits: d, minimumFractionDigits: d });
+const pct = (x, d = 0) => x == null || Number.isNaN(x) ? "–" : nf(100 * x, d) + "%";
+const tgl = s => { if (!s) return "–"; const [y, m, d] = String(s).slice(0, 10).split("-").map(Number); return `${d} ${BLN[m - 1]} ${y}`; };
+const addDays = (s, n) => { const d = new Date(String(s).slice(0, 10) + "T00:00:00Z"); d.setUTCDate(d.getUTCDate() + n); return d.toISOString().slice(0, 10); };
+const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const css = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+
+// ---- palet (sama dengan kf_viz.py) ----
+const SEQ_PROB = ["#f6e3a1", "#f7c948", "#f59b2b", "#e2552b", "#b3261e", "#6b0f12"];
+const SEQ_FIRE = ["#fdd0b8", "#f9a47f", "#ef6f4d", "#d63a2f", "#a51f1f", "#6b0f12"];
+const SEQ_BLUE = ["#cde2fb", "#9ec5f4", "#5598e7", "#2a78d6", "#1c5cab", "#0d366b"];
+const TERSIER = { "Di bawah normal": "#2a78d6", "Normal": "#b9b7af", "Di atas normal": "#e2552b" };
+const REZIM = { Kronis: "#b3261e", Episodik: "#f59b2b", Jarang: null };
+const BIV = { "1-1": null, "2-1": "#e4acac", "3-1": "#c85a5a", "1-2": "#b0d5df", "2-2": "#ad9ea5", "3-2": "#985356",
+              "1-3": "#64acbe", "2-3": "#627f8c", "3-3": "#574249" };
+const LAYERS = {
+  p_musim: { brk: [0.05, 0.2, 0.35, 0.5, 0.7, 0.85], col: SEQ_PROB, fmt: v => pct(v), judul: "Peluang ≥1 hotspot musim Jul–Okt" },
+  p_h:     { brk: [0.02, 0.05, 0.1, 0.2, 0.4, 0.6], col: SEQ_PROB, fmt: v => pct(v), judul: "Peluang ≥1 hotspot pada minggu target" },
+  tempuh:  { brk: [30, 60, 120, 180, 240, 360], col: SEQ_BLUE, fmt: v => nf(v) + "′", judul: "Waktu tempuh dari pos terdekat (menit)" },
+  terbakar:{ brk: [0.01, 0.25, 1, 2.5, 5, 10], col: SEQ_FIRE, fmt: v => nf(v, v < 1 ? 2 : 1), judul: "Luas terbakar per sel (km²)" },
+};
+const binColor = (v, L) => { if (v == null || Number.isNaN(v) || v < L.brk[0]) return null; let i = 0; while (i < L.brk.length - 1 && v >= L.brk[i + 1]) i++; return L.col[i]; };
+
+// ---- CSV ----
+function parseCSV(t) {
+  const rows = []; let row = [], f = "", q = false;
+  for (let i = 0; i < t.length; i++) {
+    const c = t[i];
+    if (q) { if (c === '"') { if (t[i + 1] === '"') { f += '"'; i++; } else q = false; } else f += c; }
+    else if (c === '"') q = true;
+    else if (c === ",") { row.push(f); f = ""; }
+    else if (c === "\n" || c === "\r") { if (c === "\r" && t[i + 1] === "\n") i++; row.push(f); rows.push(row); row = []; f = ""; }
+    else f += c;
+  }
+  if (f !== "" || row.length) { row.push(f); rows.push(row); }
+  const h = rows.shift() || [];
+  return rows.filter(r => r.length > 1 || r[0] !== "").map(r => { const o = {}; h.forEach((k, j) => { const v = r[j];
+    o[k] = v === undefined || v === "" ? null : (/^-?\d+(\.\d+)?(e-?\d+)?$/i.test(v) ? Number(v) : v); }); return o; });
+}
+async function get(name, kind = "csv", optional = true) {
+  try {
+    const r = await fetch(DATA + name, { cache: "no-cache" });
+    if (!r.ok) throw new Error(r.status);
+    return kind === "json" ? await r.json() : parseCSV(await r.text());
+  } catch (e) { if (optional) return null; throw new Error(`${name} tidak terbaca (${e.message})`); }
+}
+
+// ---- keadaan ----
+const D = {};               // data
+const st = {
+  fase: "pra", praLayer: "biv", run: null, h: 1, saatLayer: "p", hs: true, pascaLayer: "verif",
+  sel: null, simMode: null, drawing: false, verts: [], area: null, areaName: "", handled: new Set(), r: 0.3, gOnly: true,
+};
+try { const s = JSON.parse(localStorage.getItem("bara.ui") || "{}"); if (s.praLayer) st.praLayer = s.praLayer; if (s.hs === false) st.hs = false; } catch (e) {}
+const saveUI = () => { try { localStorage.setItem("bara.ui", JSON.stringify({ praLayer: st.praLayer, hs: st.hs })); } catch (e) {} };
+
+// ---- peta ----
+let map, renderer, gridLayer, kabLayer, provLayer, hsLayer, posLayer, areaLayer, drawLine, tiles;
+const cellLayer = new Map();
+
+function isDark() { return css("--map-tiles") === "dark"; }
+function setTiles() {
+  if (tiles) map.removeLayer(tiles);
+  tiles = L.tileLayer(`https://{s}.basemaps.cartocdn.com/${isDark() ? "dark_nolabels" : "light_nolabels"}/{z}/{x}/{y}{r}.png`, {
+    subdomains: "abcd", maxZoom: 14, attribution: '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions" target="_blank" rel="noopener">CARTO</a>' });
+  let fail = 0;
+  tiles.on("tileerror", () => { if (++fail === 3) { map.removeLayer(tiles); tiles = null;
+    note("Peta dasar tidak dimuat di pratinjau ini; di GitHub Pages peta dasar tampil.", false, 6000); } });
+  tiles.addTo(map); tiles.bringToBack();
+}
+let noteTimer;
+function note(text, ilus = false, ms = 0) {
+  const n = document.getElementById("mapnote"); clearTimeout(noteTimer);
+  if (!text) { n.hidden = true; return; }
+  n.textContent = text; n.className = "mapnote" + (ilus ? " ilus" : ""); n.hidden = false;
+  if (ms) noteTimer = setTimeout(() => { n.hidden = true; refreshNote(); }, ms);
+}
+
+function initMap() {
+  map = L.map("map", { zoomControl: true, attributionControl: true, minZoom: 6, maxZoom: 13, zoomSnap: 0.25 });
+  map.attributionControl.setPrefix(false);
+  L.control.scale({ imperial: false, position: "bottomright" }).addTo(map);
+  renderer = L.canvas({ padding: 0.4, tolerance: 2 });
+  setTiles();
+  gridLayer = L.geoJSON(D.grid, { renderer, style: f => styleCell(f.properties.cell),
+    onEachFeature: (f, l) => { cellLayer.set(f.properties.cell, l); l.on("click", e => onCellClick(f.properties.cell, e)); } }).addTo(map);
+  if (D.kabGeo) kabLayer = L.geoJSON(D.kabGeo, { renderer, interactive: false, style: () => ({ fill: false, weight: 0.9, color: css("--ink2"), opacity: 0.8 }) }).addTo(map);
+  if (D.batas) provLayer = L.geoJSON(D.batas, { renderer, interactive: false, style: () => ({ fill: false, weight: 1.6, color: css("--ink"), opacity: 0.9 }) }).addTo(map);
+  hsLayer = L.layerGroup();
+  if (D.hsPts) for (const f of D.hsPts.features) {
+    const [x, y] = f.geometry.coordinates;
+    L.circleMarker([y, x], { renderer, radius: 1.3, weight: 0, fillOpacity: 0.7, fillColor: css("--hs"), interactive: false }).addTo(hsLayer);
+  }
+  posLayer = L.layerGroup();
+  for (const p of D.pos || []) L.circleMarker([p.lat, p.lon], { renderer, radius: 5, weight: 2, color: css("--surface"), fillColor: css("--cool"), fillOpacity: 1 })
+    .bindTooltip(esc(p.nama) + (String(p.asumsi).toLowerCase() === "true" ? " (asumsi)" : ""), { direction: "top" }).addTo(posLayer);
+  areaLayer = L.layerGroup().addTo(map);
+  map.fitBounds((provLayer || gridLayer).getBounds(), { padding: [12, 12] });
+  map.on("click", onMapClick);
+  map.on("dblclick", e => { if (st.drawing) { L.DomEvent.stop(e); finishDraw(); } });
+}
+
+// ---- warna sel menurut fase ----
+let CELL0;
+function styleCell(c) {
+  const r = D.sel.get(c); const s = { stroke: false, fill: true, fillOpacity: 0.86, fillColor: CELL0, weight: 0 };
+  if (!r) return s;
+  let col = null;
+  if (st.fase === "pra") {
+    if (st.praLayer === "biv") col = BIV[r.k || "1-1"] ?? null;
+    else if (st.praLayer === "musim") col = binColor(r.p_musim, LAYERS.p_musim);
+    else if (st.praLayer === "rezim") col = REZIM[r.rezim] ?? null;
+    else if (st.praLayer === "tempuh") col = binColor(r.waktu_tempuh_menit, LAYERS.tempuh);
+    if (st.praLayer === "tempuh" && r.titik_buta) Object.assign(s, { stroke: true, color: css("--ember"), weight: 2 });
+  } else if (st.fase === "saat") {
+    const P = runRow(c); col = P ? binColor(P["p_h" + st.h], LAYERS.p_h) : null;
+    const k = priorOf(c);
+    if (k === "padamkan") Object.assign(s, { stroke: true, color: css("--ink"), weight: 2.2 });
+    else if (k === "awasi" || k === "zona_h4") Object.assign(s, { stroke: true, color: css("--ember"), weight: 1, dashArray: "2 3" });
+  } else if (st.fase === "pasca") {
+    if (pascaLayer() === "terbakar") col = binColor(r[D.baCol], LAYERS.terbakar);
+    else { const v = verifClass(c); col = { tangkap: "#b3261e", lewat: "#2a78d6", palsu: "#f7c948" }[v] ?? null; }
+  } else {
+    col = binColor(simP(c), LAYERS.p_h);
+    if (st.area && st.area.has(c)) Object.assign(s, { stroke: true, color: css("--warn"), weight: 0.6, opacity: 0.7 });
+    if (st.simMode === "aksi") { const k = aksiState(c); if (k === "pad") Object.assign(s, { stroke: true, color: css("--ink"), weight: 2.2 });
+      else if (k === "baru") Object.assign(s, { stroke: true, color: css("--cool"), weight: 2.6 });
+      else if (k === "done") Object.assign(s, { stroke: true, color: css("--ok"), weight: 2.6, dashArray: "2 2" }); }
+  }
+  if (c === st.sel) Object.assign(s, { stroke: true, color: css("--ink"), weight: 3, dashArray: null });
+  s.fillColor = col || CELL0;
+  return s;
+}
+function refreshMap() {
+  CELL0 = css("--cell0");
+  gridLayer.eachLayer(l => l.setStyle(styleCell(l.feature.properties.cell)));
+  const showHs = (st.fase === "saat" && st.hs);
+  if (showHs && !map.hasLayer(hsLayer)) hsLayer.addTo(map); if (!showHs && map.hasLayer(hsLayer)) map.removeLayer(hsLayer);
+  const showPos = st.fase === "pra" && st.praLayer === "tempuh";
+  if (showPos && !map.hasLayer(posLayer)) posLayer.addTo(map); if (!showPos && map.hasLayer(posLayer)) map.removeLayer(posLayer);
+  hsLayer.eachLayer(m => m.setStyle({ fillColor: css("--hs") }));
+  if (kabLayer) kabLayer.setStyle({ color: css("--ink2") }); if (provLayer) provLayer.setStyle({ color: css("--ink") });
+  refreshNote();
+}
+function refreshNote() {
+  if (st.fase === "simulasi" && st.simMode === "basah" && st.r > 0 && st.area) note("ILUSTRASI · pembasahan belum dimodelkan", true);
+  else note("");
+}
+
+// ---- prakiraan ----
+const runRow = c => D.prak.get(st.run)?.get(c);
+function priorOf(c) { const m = D.priorIdx.get(st.run + "|" + st.h) || D.priorIdx.get(st.run + "|1"); return m?.get(c) || null; }
+function runList() { return [...D.prak.keys()].sort(); }
+function hList() { const t = D.meta.titik_asal.find(x => x.data_sampai === st.run); return t ? Object.keys(t.horizon).map(k => +k.slice(1)) : D.meta.horizon || [1]; }
+function targetWeek(run = st.run, h = st.h) { return [addDays(run, 1 + 7 * (h - 1)), addDays(run, 7 * h)]; }
+
+// ---- verifikasi (prakiraan beku vs kejadian minggu target) ----
+let VCACHE = { key: null };
+function verif() {
+  const key = st.run + "|" + st.h; if (VCACHE.key === key) return VCACHE;
+  const [w0, w1] = targetWeek(); const P = D.prak.get(st.run); const out = { key, ok: false, w0, w1 };
+  if (!P || !D.meta.data_hotspot_sampai || w1 > D.meta.data_hotspot_sampai) return (VCACHE = out);
+  const obs = D.hsWeek.get(w0) || new Set(); const ps = []; P.forEach(v => ps.push(v["p_h" + st.h] ?? 0)); ps.sort((a, b) => a - b);
+  const thr = ps[Math.floor(0.9 * (ps.length - 1))];
+  const cls = new Map(); let nObs = 0, nTk = 0, exp = 0;
+  P.forEach((v, c) => { const p = v["p_h" + st.h] ?? 0; exp += p; const o = obs.has(c), t = p >= thr;
+    if (o) nObs++; if (o && t) nTk++; cls.set(c, o && t ? "tangkap" : o ? "lewat" : t ? "palsu" : null); });
+  return (VCACHE = Object.assign(out, { ok: true, cls, nObs, nTk, exp, thr }));
+}
+const verifClass = c => verif().cls?.get(c) || null;
+const pascaLayer = () => (st.pascaLayer === "verif" && !verif().ok) ? "terbakar" : st.pascaLayer;
+
+// ---- simulasi ----
+function simP(c) {
+  const P = D.prak.get(D.latest)?.get(c); if (!P) return null; let p = P.p_h1 ?? 0;
+  if (st.simMode === "basah" && st.area && st.area.has(c)) { const g = D.hasGambut && st.gOnly ? (D.sel.get(c)?.gambut_frac ?? 0) : 1; p = p * (1 - st.r * g); }
+  return p;
+}
+function aksiLists() {
+  const P = D.prak.get(D.latest); if (!P) return { list: [], init: [] };
+  const m = D.priorIdx.get(D.latest + "|1"); let init = m ? [...m].filter(([, k]) => k === "padamkan").map(([c]) => c) : [];
+  const cand = [...P].filter(([, v]) => v.st === 1).sort((a, b) => (b[1].p_h1 ?? 0) - (a[1].p_h1 ?? 0)).map(([c]) => c);
+  if (!init.length) init = cand.slice(0, D.meta.N_REGU || 12);
+  init.sort((a, b) => (P.get(b)?.p_h1 ?? 0) - (P.get(a)?.p_h1 ?? 0));
+  const keep = init.filter(c => !st.handled.has(c)); const need = init.length - keep.length; const add = [];
+  for (const c of cand) { if (add.length >= need) break; if (!init.includes(c) && !st.handled.has(c)) add.push(c); }
+  return { init, keep, add, list: keep.concat(add) };
+}
+let AKSI = null;
+function aksiState(c) { if (!AKSI) return null; if (st.handled.has(c)) return "done"; if (AKSI.add.includes(c)) return "baru"; if (AKSI.keep.includes(c)) return "pad"; return null; }
+function areaStats(cells) {
+  let n = 0, luas = 0, eMus = 0, eH1 = 0, eSim = 0, kron = 0, tb = 0, ba = 0, burn = 0;
+  const P = D.prak.get(D.latest);
+  for (const c of cells) { const r = D.sel.get(c); if (!r) continue; n++; luas += r.luas_km2 || 0; eMus += (r.p_musim || 0) * (r.luas_km2 || 0);
+    const p = P?.get(c); eH1 += p?.p_h1 ?? 0; eSim += simP(c) ?? 0; if (r.rezim === "Kronis") kron++; if (r.titik_buta) tb++; ba += r[D.baCol] || 0; if (p?.st === 1) burn++; }
+  return { n, luas, eMus, eH1, eSim, kron, tb, ba, burn };
+}
+function inPoly(x, y, poly) { let inside = false; for (let i = 0, j = poly.length - 1; i < poly.length; j = i++) {
+  const [xi, yi] = poly[i], [xj, yj] = poly[j]; if (((yi > y) !== (yj > y)) && (x < (xj - xi) * (y - yi) / (yj - yi) + xi)) inside = !inside; } return inside; }
+
+// ---- interaksi peta ----
+function onCellClick(c, e) {
+  if (st.drawing) return;
+  if (st.fase === "simulasi" && st.simMode === "aksi") {
+    const k = aksiState(c);
+    if (k === "pad" || k === "baru") st.handled.add(c); else if (k === "done") st.handled.delete(c); else { select(c); return; }
+    AKSI = aksiLists(); refreshMap(); renderPanel(); return;
+  }
+  select(c);
+}
+function onMapClick(e) {
+  if (!st.drawing) return;
+  st.verts.push([e.latlng.lng, e.latlng.lat]);
+  if (drawLine) areaLayer.removeLayer(drawLine);
+  drawLine = L.polyline(st.verts.map(([x, y]) => [y, x]), { color: css("--warn"), weight: 2, dashArray: "4 4", interactive: false }).addTo(areaLayer);
+  drawHint();
+}
+function startDraw() { st.drawing = true; st.verts = []; areaLayer.clearLayers(); drawLine = null; map.doubleClickZoom.disable(); drawHint(); }
+function drawHint() {
+  const h = document.getElementById("drawhint");
+  if (!st.drawing) { h.hidden = true; return; }
+  h.innerHTML = `<span>Klik peta untuk titik sudut (${st.verts.length}). Klik ganda atau “Selesai” untuk menutup.</span>
+    <button class="btn" id="draw-done" ${st.verts.length < 3 ? "disabled" : ""}>Selesai</button><button class="btn ghost" id="draw-cancel" style="color:var(--bg);border-color:var(--bg)">Batal</button>`;
+  h.hidden = false;
+  h.querySelector("#draw-done").onclick = ev => { ev.stopPropagation(); finishDraw(); };
+  h.querySelector("#draw-cancel").onclick = ev => { ev.stopPropagation(); st.drawing = false; st.verts = []; areaLayer.clearLayers(); map.doubleClickZoom.enable(); drawHint(); };
+}
+function finishDraw() {
+  if (st.verts.length < 3) return;
+  st.drawing = false; map.doubleClickZoom.enable(); areaLayer.clearLayers();
+  L.polygon(st.verts.map(([x, y]) => [y, x]), { color: css("--warn"), weight: 2, fillOpacity: 0.05, interactive: false }).addTo(areaLayer);
+  const set = new Set(); for (const r of D.cells) if (inPoly(r.lon, r.lat, st.verts)) set.add(r.cell);
+  st.area = set; st.areaName = "Area digambar"; drawHint(); refreshMap(); renderPanel();
+}
+function setAreaKab(k) {
+  areaLayer.clearLayers(); st.verts = [];
+  if (!k) { st.area = null; st.areaName = ""; }
+  else { st.area = new Set(D.cells.filter(r => r.kabupaten === k).map(r => r.cell)); st.areaName = k; }
+  refreshMap(); renderPanel();
+}
+
+// ---- kartu sel ----
+function select(c) { st.sel = c; refreshMap(); renderInfo(); }
+function renderInfo() {
+  const el = document.getElementById("info"); const r = D.sel.get(st.sel);
+  if (!r) { el.hidden = true; return; }
+  const P = runRow(st.sel) || D.prak.get(D.latest)?.get(st.sel);
+  const rows = [["Rezim api", r.rezim ?? "–"], ["Peluang musim Jul–Okt", pct(r.p_musim)], ["Kelas risiko (peluang-keterpaparan)", r.k || "1-1"],
+    ["Waktu tempuh", r.waktu_tempuh_menit == null ? "–" : nf(r.waktu_tempuh_menit) + " menit" + (r.titik_buta ? " · titik buta" : "")]];
+  if (P) { for (const h of hList()) rows.push([`Peluang minggu h${h}`, pct(P["p_h" + h], 1)]); rows.push(["Sedang terbakar (minggu asal)", P.st === 1 ? "ya" : "tidak"]); if (P.keyakinan) rows.push(["Keyakinan", P.keyakinan]); }
+  rows.push([`Terbakar ${D.meta.tahun} (MCD64A1)`, nf(r[D.baCol] || 0, 2) + " km²"]);
+  el.innerHTML = `<button class="x" aria-label="Tutup kartu sel">×</button><h4>${esc(r.desa || "–")}</h4>
+    <div class="sub">${esc(r.kecamatan || "")} · ${esc(r.kabupaten || "")} · sel <span class="mono">${r.cell}</span></div>
+    <dl class="stats">${rows.map(([a, b]) => `<dt>${a}</dt><dd>${esc(b)}</dd>`).join("")}</dl>
+    <div class="note" style="margin-top:6px"><a href="https://maps.google.com/?q=${r.lat},${r.lon}" target="_blank" rel="noopener">Buka di Google Maps</a> · <span class="mono">${nf(r.lat, 4)}, ${nf(r.lon, 4)}</span></div>`;
+  el.hidden = false; el.querySelector(".x").onclick = () => { st.sel = null; el.hidden = true; refreshMap(); };
+}
+
+// ---- panel ----
+const panel = document.getElementById("panel");
+function legendRamp(L) {
+  return `<div class="legend"><div class="note" style="color:var(--ink2)">${L.judul}</div><div class="ramp"><span style="background:var(--cell0)"></span>${L.col.map(c => `<span style="background:${c}"></span>`).join("")}</div>
+  <div class="ramp-l"><span>&lt;${L.fmt(L.brk[0])}</span>${L.brk.slice(1).map(b => `<span>${L.fmt(b)}</span>`).join("")}<span></span></div></div>`;
+}
+function legendBiv() {
+  const g = []; for (let e = 3; e >= 1; e--) for (let p = 1; p <= 3; p++) g.push(`<span style="background:${BIV[p + "-" + e] || "var(--cell0)"}"></span>`);
+  const pub = D.meta.versi === "publik" && !D.hasGambut;
+  return `<div class="biv"><div class="g" aria-hidden="true">${g.join("")}</div><div>Peluang musim → (tersier)<br>↑ Keterpaparan: ${pub ? "permukiman" : "gambut + permukiman"}<br><span class="note">${pub ? "Versi publik: lapisan gambut disaring." : ""}</span></div></div>`;
+}
+function srcLine(ids) {
+  const L = (D.meta.lapisan || []).filter(l => ids.includes(l.id));
+  return L.map(l => `<div><span class="pill ${l.status === "ILUSTRASI" ? "ilus" : l.status === "ASUMSI" ? "asumsi" : "hasil"}">${l.status}</span> ${esc(l.id.replace("_", " "))}: ${esc(l.sumber)}${l.keterangan ? " — " + esc(l.keterangan) : ""}</div>`).join("");
+}
+function foot(ids) {
+  return `<div class="foot">${srcLine(ids)}<div style="margin-top:6px">${esc(D.meta.penafian)}</div><div>${esc(D.meta.kredit)} · versi ${esc(D.meta.versi)} · dibuat ${tgl(D.meta.dibuat)}</div></div>`;
+}
+function seg(name, cur, opts) { return `<div class="seg" role="group">${opts.map(([v, t]) => `<button data-${name}="${v}" aria-pressed="${v === cur}">${t}</button>`).join("")}</div>`; }
+
+function panelPra() {
+  const kat = D.kategori ? D.kategori.filter(r => r.model === "terpilih").sort((a, b) => a.terbit - b.terbit).pop() : null;
+  const kron = D.cells.filter(r => r.rezim === "Kronis").length, tb = D.cells.filter(r => r.titik_buta).length;
+  const KR = (D.kabR || []).slice().sort((a, b) => b.E_lahan - a.E_lahan); const mx = Math.max(...KR.map(r => r.E_lahan), 1);
+  const lay = { biv: legendBiv(), musim: legendRamp(LAYERS.p_musim),
+    rezim: `<div class="keys"><span><i style="background:${REZIM.Kronis}"></i>Kronis</span><span><i style="background:${REZIM.Episodik}"></i>Episodik (El Niño)</span><span><i style="background:var(--cell0)"></i>Jarang</span></div>`,
+    tempuh: legendRamp(LAYERS.tempuh) + `<div class="keys"><span><i style="background:transparent;outline:2px solid var(--ember);outline-offset:-2px"></i>Titik buta: risiko tinggi, &gt;120 menit</span><span><i style="background:var(--cool);border-radius:50%"></i>Pos ${D.posAsumsi ? "(asumsi 1 per kabupaten)" : ""}</span></div>` }[st.praLayer];
+  return `<div class="q"><span class="eyebrow">Pra · perencana KPH dan Balai</span><h1>Di mana bersiap sebelum musim kemarau?</h1>
+    <p>Gabungan peluang musiman dan apa yang terpapar. Prakiraan musim terbit ${kat ? esc(kat.tanggal_terbit) : "–"} ${D.meta.tahun}.</p></div>
+  <div class="kpis">
+    <div class="kpi hot"><span class="v">${kat ? esc(kat.kategori) : "–"}</span><span class="l">Musim ${D.meta.tahun}: peluang di atas normal ${kat ? pct(kat.p_atas) : "–"}</span></div>
+    <div class="kpi"><span class="v">${nf(kron)} <small>sel</small></span><span class="l">Rezim kronis, ${pct(kron / D.cells.length)} sel daratan</span></div>
+    <div class="kpi"><span class="v">${nf(tb)} <small>sel</small></span><span class="l">Titik buta: berisiko tinggi, jauh dari pos</span></div>
+  </div>
+  <div class="sec"><h2>Lapisan peta</h2>${seg("pra", st.praLayer, [["biv", "Risiko bivariat"], ["musim", "Peluang musim"], ["rezim", "Rezim api"], ["tempuh", "Waktu tempuh"]])}${lay}</div>
+  <div class="sec"><h2>Nilai harapan per kabupaten</h2><div class="tablewrap"><table><thead><tr><th>Kabupaten</th><th class="n">E lahan km²</th><th class="barc"></th><th class="n">Kronis</th><th class="n">Titik buta</th></tr></thead><tbody>
+    ${KR.map(r => `<tr class="click" data-kab="${esc(r.kabupaten)}"><td>${esc(r.kabupaten)}</td><td class="n">${nf(r.E_lahan)}</td><td class="barc" style="width:22%;min-width:48px"><div class="bar" style="width:${100 * r.E_lahan / mx}%"></div></td><td class="n">${nf(r.sel_Kronis)}</td><td class="n">${nf(r.titik_buta)}</td></tr>`).join("")}
+  </tbody></table></div><div class="note">E = Σ peluang musim × luas daratan sel: luas yang diperkirakan ber-hotspot. Klik baris untuk memperbesar peta.</div></div>
+  ${foot(["rezim", "musim", "bivariat", "titik_buta", "kategori_musim", "pos"])}`;
+}
+
+function panelSaat() {
+  if (!D.prak.size) return `<div class="q"><span class="eyebrow">Saat</span><h1>Belum ada prakiraan</h1><p>Jalankan tahap 07 lalu s11_dashboard.py.</p></div>${foot(["prakiraan"])}`;
+  const P = D.prak.get(st.run); const [w0, w1] = targetWeek(); let burn = 0, exp = 0; P.forEach(v => { if (v.st === 1) burn++; exp += v["p_h" + st.h] ?? 0; });
+  const m = D.priorIdx.get(st.run + "|" + st.h) || D.priorIdx.get(st.run + "|1") || new Map();
+  const pad = [...m].filter(([, k]) => k === "padamkan").map(([c]) => c), aw = [...m].filter(([, k]) => k !== "padamkan").length;
+  pad.sort((a, b) => (P.get(b)?.["p_h" + st.h] ?? 0) - (P.get(a)?.["p_h" + st.h] ?? 0));
+  const tinfo = D.meta.titik_asal.find(t => t.data_sampai === st.run);
+  return `<div class="q"><span class="eyebrow">Saat · Daops dan posko</span><h1>Minggu ${tgl(w0)} – ${tgl(w1)}: regu ke mana?</h1>
+    <p>Prakiraan dibuat dari data hotspot s.d. ${tgl(st.run)}${tinfo?.sumber_masukan ? " (" + esc(tinfo.sumber_masukan) + ")" : ""}${tinfo && !tinfo.arsip ? "" : " · arsip"}.</p></div>
+  <div class="row"><select id="run" aria-label="Titik asal prakiraan">${runList().map(r => `<option value="${r}" ${r === st.run ? "selected" : ""}>Data s.d. ${tgl(r)}</option>`).join("")}</select>
+    ${seg("h", String(st.h), hList().map(h => [String(h), `h${h} · +${h} mg`]))}</div>
+  <div class="kpis">
+    <div class="kpi"><span class="v">${nf(burn)} <small>sel</small></span><span class="l">Sedang terbakar di minggu asal</span></div>
+    <div class="kpi hot"><span class="v">${nf(exp)} <small>sel</small></span><span class="l">Harapan sel ber-hotspot minggu ini</span></div>
+    <div class="kpi"><span class="v">${nf(pad.length)} <small>sel</small></span><span class="l">PADAMKAN · ${nf(aw)} sel AWASI</span></div>
+  </div>
+  <div class="sec"><h2>Peta</h2>${legendRamp(LAYERS.p_h)}
+    <div class="keys"><span><span class="pill pad">Padamkan</span> sel terbakar, peluang lanjut tertinggi</span><span><span class="pill aw">Awasi</span> zona penyulutan baru</span></div>
+    <label class="tog"><input type="checkbox" id="hs" ${st.hs ? "checked" : ""}> Titik hotspot ${D.meta.label_hotspot ? "(" + esc(D.meta.label_hotspot) + ")" : ""}, ${tgl(addDays(D.meta.data_hotspot_sampai, -27))} – ${tgl(D.meta.data_hotspot_sampai)}</label></div>
+  <div class="sec"><h2>Daftar PADAMKAN</h2>${pad.length ? `<div class="tablewrap"><table><thead><tr><th>Desa · kecamatan</th><th class="n">Peluang</th><th class="n">Tempuh</th></tr></thead><tbody>
+    ${pad.slice(0, 30).map(c => { const r = D.sel.get(c) || {}; return `<tr class="click" data-cell="${c}"><td>${esc(r.desa)}<div class="note">${esc(r.kecamatan)} · ${esc(r.kabupaten)}</div></td><td class="n">${pct(P.get(c)?.["p_h" + st.h], 0)}</td><td class="n">${r.waktu_tempuh_menit == null ? "–" : nf(r.waktu_tempuh_menit) + "′"}</td></tr>`; }).join("")}
+  </tbody></table></div>` : `<p class="note">Tidak ada daftar padamkan untuk titik asal ini.</p>`}
+  <div class="note">Kapasitas ${nf(D.meta.N_REGU)} regu per minggu (N_REGU). Waktu tempuh dari pos ${D.posAsumsi ? "asumsi" : "Daops"}.</div></div>
+  ${foot(["prakiraan", "prioritas", "hotspot"])}`;
+}
+
+function panelPasca() {
+  const tot = D.cells.reduce((a, r) => a + (r[D.baCol] || 0), 0), nb = D.cells.filter(r => (r[D.baCol] || 0) > 0).length;
+  const V = verif(); const vk = (D.verif || []).filter(r => r.data_sampai === st.run && r.h === st.h && r.kabupaten !== "PROVINSI").sort((a, b) => b.sel_teramati - a.sel_teramati);
+  const lay = pascaLayer() === "terbakar" ? legendRamp(LAYERS.terbakar) :
+    `<div class="keys"><span><i style="background:#b3261e"></i>Tertangkap: terjadi, di 10% teratas</span><span><i style="background:#2a78d6"></i>Terlewat: terjadi, di luar 10%</span><span><i style="background:#f7c948"></i>10% teratas, tidak terjadi</span></div>`;
+  return `<div class="q"><span class="eyebrow">Pasca · pimpinan dan evaluasi</span><h1>Seberapa tepat prakiraan, dan apa yang terbakar?</h1>
+    <p>Prakiraan dibekukan sebelum minggunya, lalu dicocokkan dengan hotspot yang benar-benar terjadi.</p></div>
+  <div class="row"><select id="run" aria-label="Titik asal prakiraan">${runList().map(r => `<option value="${r}" ${r === st.run ? "selected" : ""}>Data s.d. ${tgl(r)}</option>`).join("")}</select>
+    ${seg("h", String(st.h), hList().map(h => [String(h), `h${h}`]))}</div>
+  <div class="kpis">
+    <div class="kpi hot"><span class="v">${V.ok ? pct(V.nTk / Math.max(V.nObs, 1)) : "–"}</span><span class="l">Sel ber-hotspot yang tertangkap 10% sel peluang tertinggi</span></div>
+    <div class="kpi"><span class="v">${V.ok ? nf(V.nObs) : "–"} <small>/ ${V.ok ? nf(V.exp) : "–"}</small></span><span class="l">Sel teramati / harapan model, ${tgl(V.w0)}–${tgl(V.w1)}</span></div>
+    <div class="kpi"><span class="v">${nf(tot)} <small>km²</small></span><span class="l">Terbakar ${D.meta.tahun} (MCD64A1), ${nf(nb)} sel</span></div>
+  </div>
+  ${V.ok ? "" : `<p class="note err">Minggu target ${tgl(V.w0)}–${tgl(V.w1)} belum teramati (data hotspot s.d. ${tgl(D.meta.data_hotspot_sampai)}). Verifikasi tersedia untuk titik asal yang minggu targetnya sudah lewat.</p>`}
+  <div class="sec"><h2>Lapisan peta</h2>${seg("pasca", pascaLayer(), V.ok ? [["verif", "Verifikasi minggu target"], ["terbakar", "Luas terbakar " + D.meta.tahun]] : [["terbakar", "Luas terbakar " + D.meta.tahun]])}${lay}</div>
+  ${seasonChart()}
+  ${vk.length ? `<div class="sec"><h2>Verifikasi per kabupaten</h2><div class="tablewrap"><table><thead><tr><th>Kabupaten</th><th class="n">Teramati</th><th class="n">Harapan</th><th class="n">Tangkap 10%</th></tr></thead><tbody>
+    ${vk.map(r => `<tr class="click" data-kab="${esc(r.kabupaten)}"><td>${esc(r.kabupaten)}</td><td class="n">${nf(r.sel_teramati)}</td><td class="n">${nf(r.harapan_sel)}</td><td class="n">${r.laju_10 == null ? "–" : pct(r.laju_10)}</td></tr>`).join("")}
+  </tbody></table></div><div class="note">Kabupaten dengan sedikit sel teramati memberi laju yang tidak stabil.</div></div>` : ""}
+  ${foot(["verifikasi", "terbakar", "restorasi"])}`;
+}
+
+function seasonChart() {
+  const R = (D.verif || []).filter(r => r.kabupaten === "PROVINSI" && r.h === st.h).sort((a, b) => a.minggu_mulai < b.minggu_mulai ? -1 : 1);
+  if (R.length < 2) return "";
+  const W = 360, H = 132, l = 30, r = 6, t = 8, b = 22, bw = (W - l - r) / R.length;
+  const y = v => t + (H - t - b) * (1 - v);
+  const grid = [0, 0.5, 1].map(v => `<line x1="${l}" x2="${W - r}" y1="${y(v)}" y2="${y(v)}" stroke="var(--line)"/><text x="${l - 4}" y="${y(v) + 3.5}" text-anchor="end" font-size="10" fill="var(--ink3)">${v * 100}%</text>`).join("");
+  const bars = R.map((d, i) => { const on = d.data_sampai === st.run; const v = d.laju_10 ?? 0;
+    return `<rect class="vbar" data-run="${d.data_sampai}" x="${l + i * bw + 1.5}" y="${y(v)}" width="${Math.max(bw - 3, 2)}" height="${(H - t - b) * v}" rx="1.5" fill="${on ? "var(--ember)" : "var(--ink3)"}" opacity="${on ? 1 : 0.55}" style="cursor:pointer"><title>Minggu ${tgl(d.minggu_mulai)}: ${pct(v)} (${nf(d.tertangkap_10)} dari ${nf(d.sel_teramati)} sel)</title></rect>`; }).join("");
+  const xl = `<text x="${l}" y="${H - 6}" font-size="10" fill="var(--ink3)">${tgl(R[0].minggu_mulai)}</text><text x="${W - r}" y="${H - 6}" text-anchor="end" font-size="10" fill="var(--ink3)">${tgl(R[R.length - 1].minggu_mulai)}</text>`;
+  return `<div class="sec"><h2>Sepanjang musim · h${st.h}</h2><svg viewBox="0 0 ${W} ${H}" width="100%" role="img" aria-label="Tangkapan 10% teratas per minggu target">${grid}${bars}${xl}</svg>
+    <div class="note">Batang = sel ber-hotspot yang tertangkap 10% sel peluang tertinggi, per minggu target. Klik batang untuk membuka minggu itu di peta.</div></div>`;
+}
+function panelSim() {
+  const kabs = [...new Set(D.cells.map(r => r.kabupaten))].filter(Boolean).sort();
+  const A = st.area ? areaStats(st.area) : null;
+  AKSI = st.simMode === "aksi" ? aksiLists() : null;
+  const areaCtl = `<div class="row"><button class="btn" id="draw">${st.area && st.areaName === "Area digambar" ? "Gambar ulang" : "Gambar area"}</button>
+    <select id="akab" aria-label="Pilih kabupaten sebagai area"><option value="">atau pilih kabupaten…</option>${kabs.map(k => `<option ${k === st.areaName ? "selected" : ""}>${esc(k)}</option>`).join("")}</select>
+    ${st.area ? `<button class="btn ghost" id="aclear">Hapus area</button>` : ""}</div>`;
+  const statsA = A ? `<dl class="stats"><dt>${esc(st.areaName)}</dt><dd>${nf(A.n)} sel · ${nf(A.luas)} km²</dd>
+    <dt>Luas harapan ber-hotspot musim (E)</dt><dd>${nf(A.eMus)} km²</dd><dt>Harapan sel ber-hotspot minggu depan</dt><dd>${nf(A.eH1, 1)}</dd>
+    <dt>Sel sedang terbakar</dt><dd>${nf(A.burn)}</dd><dt>Sel rezim kronis</dt><dd>${nf(A.kron)}</dd><dt>Titik buta</dt><dd>${nf(A.tb)}</dd>
+    <dt>Terbakar ${D.meta.tahun}</dt><dd>${nf(A.ba, 1)} km²</dd></dl>` : `<p class="note">Belum ada area. Gambar poligon di peta atau pilih kabupaten.</p>`;
+  const card = (id, judul, status, isi) => `<div class="card" ${st.simMode === id ? 'style="border-color:var(--ink)"' : ""}><h3>${judul} <span class="pill ${status === "ILUSTRASI" ? "ilus" : "hasil"}">${status}</span></h3>${isi}</div>`;
+  const aksi = AKSI ? (() => { const P = D.prak.get(D.latest);
+    return `<p>Klik sel ber-garis hitam di peta untuk menandai sudah ditangani. Regu bergeser ke sel terbakar berikutnya dengan peluang h1 tertinggi.</p>
+    <div class="row"><span class="pill pad">tetap ${AKSI.keep.length}</span><span class="pill baru">masuk ${AKSI.add.length}</span><span class="pill hasil">ditangani ${st.handled.size}</span>${st.handled.size ? `<button class="btn ghost" id="areset">Ulang</button>` : ""}</div>
+    <div class="tablewrap"><table><tbody>${AKSI.list.slice(0, 14).map(c => { const r = D.sel.get(c) || {}; return `<tr class="click" data-cell="${c}"><td>${AKSI.add.includes(c) ? '<span class="pill baru">baru</span> ' : ""}${esc(r.desa)}<div class="note">${esc(r.kabupaten)}</div></td><td class="n">${pct(P.get(c)?.p_h1)}</td></tr>`; }).join("")}</tbody></table></div>
+    <div class="note">Efek penanganan ke peluang minggu berikutnya belum dimodelkan.</div>`; })() : "";
+  const basah = st.simMode === "basah" ? `<p>Misalkan sekat kanal dan pembasahan di area terpilih menurunkan peluang hotspot sebesar r. ${D.hasGambut ? "" : "Versi publik tidak memuat gambut, jadi r berlaku ke semua sel area."}</p>
+    <label for="r" class="note" style="color:var(--ink2)">r = <b class="num">${pct(st.r)}</b> penurunan peluang</label><input type="range" id="r" min="0" max="0.6" step="0.05" value="${st.r}">
+    ${D.hasGambut ? `<label class="tog"><input type="checkbox" id="gonly" ${st.gOnly ? "checked" : ""}> hanya sebanding porsi gambut sel</label>` : ""}
+    ${A ? `<dl class="stats"><dt>Harapan sel ber-hotspot minggu depan</dt><dd>${nf(A.eH1, 1)} → ${nf(A.eSim, 1)}</dd><dt>Selisih</dt><dd class="delta">−${nf(A.eH1 - A.eSim, 1)} sel</dd></dl>` : `<p class="note err">Pilih area dulu.</p>`}
+    <div class="note">Angka ini asumsi, bukan keluaran model: model belum memuat TMAT atau sekat kanal. Menjadi HASIL bila data TMAT BRGM dan lokasi sekat kanal tersedia.</div>` : "";
+  return `<div class="q"><span class="eyebrow">Simulasi · prakiraan data s.d. ${tgl(D.latest)}</span><h1>Bagaimana kalau…?</h1>
+    <p>Tiga skenario dihitung langsung di peramban dari peluang minggu h1 (${tgl(targetWeek(D.latest, 1)[0])} – ${tgl(targetWeek(D.latest, 1)[1])}).</p></div>
+  ${card("area", "Area penting", "HASIL", `<p>Tandai desa, kawasan, atau konsesi yang perlu dilindungi untuk melihat risiko di dalamnya.</p>${areaCtl}${statsA}`)}
+  ${card("aksi", "Sudah ditangani", "HASIL", st.simMode === "aksi" ? aksi : `<p>Keluarkan sel yang sudah dipadamkan atau dipatroli, lalu lihat ke mana regu bergeser.</p><button class="btn" data-sim="aksi">Mulai</button>`)}
+  ${card("basah", "Pembasahan sebelumnya", "ILUSTRASI", st.simMode === "basah" ? basah : `<p>Turunkan peluang di area terpilih untuk melihat besar efek yang dibutuhkan.</p><button class="btn" data-sim="basah">Mulai</button>`)}
+  ${foot(["prakiraan"])}`;
+}
+
+function renderPanel() {
+  const f = { pra: panelPra, saat: panelSaat, pasca: panelPasca, simulasi: panelSim }[st.fase];
+  const top = panel.scrollTop; panel.innerHTML = f(); panel.scrollTop = top;
+}
+panel.addEventListener("click", e => {
+  const vb = e.target.closest(".vbar"); if (vb) { st.run = vb.dataset.run; VCACHE.key = null; refreshMap(); renderPanel(); renderInfo(); return; }
+  const b = e.target.closest("button, tr.click"); if (!b) return;
+  if (b.dataset.pra) { st.praLayer = b.dataset.pra; saveUI(); }
+  else if (b.dataset.h) { st.h = +b.dataset.h; VCACHE.key = null; }
+  else if (b.dataset.pasca) st.pascaLayer = b.dataset.pasca;
+  else if (b.dataset.sim) { st.simMode = b.dataset.sim; st.handled.clear(); }
+  else if (b.id === "draw") { st.simMode = st.simMode === "aksi" ? null : st.simMode; startDraw(); return; }
+  else if (b.id === "aclear") { setAreaKab(""); return; }
+  else if (b.id === "areset") st.handled.clear();
+  else if (b.dataset.cell) { const c = +b.dataset.cell; const l = cellLayer.get(c); if (l) map.flyTo(l.getBounds().getCenter(), Math.max(map.getZoom(), 10), { duration: 0.6 }); select(c); return; }
+  else if (b.dataset.kab) { const cs = D.cells.filter(r => r.kabupaten === b.dataset.kab); if (cs.length) map.flyToBounds(L.latLngBounds(cs.map(r => [r.lat, r.lon])), { padding: [20, 20], duration: 0.6 }); return; }
+  else return;
+  refreshMap(); renderPanel();
+});
+panel.addEventListener("change", e => {
+  const t = e.target;
+  if (t.id === "run") { st.run = t.value; if (!hList().includes(st.h)) st.h = hList()[0]; VCACHE.key = null; }
+  else if (t.id === "hs") { st.hs = t.checked; saveUI(); }
+  else if (t.id === "akab") { setAreaKab(t.value); return; }
+  else if (t.id === "gonly") st.gOnly = t.checked;
+  else return;
+  refreshMap(); renderPanel(); renderInfo();
+});
+panel.addEventListener("input", e => { if (e.target.id === "r") { st.r = +e.target.value; refreshMap(); renderPanel(); document.getElementById("r")?.focus(); } });
+
+function setFase(f, push = true) {
+  if (!["pra", "saat", "pasca", "simulasi"].includes(f)) f = "pra";
+  st.fase = f; if (st.drawing) { st.drawing = false; drawHint(); }
+  if (f === "pasca" && D.prak && !verif().ok) { const ok = runList().filter(r => targetWeek(r, st.h)[1] <= D.meta.data_hotspot_sampai); if (ok.length) { st.run = ok.pop(); VCACHE.key = null; } }
+  if (f === "saat" && D.latest && st.fase === "saat" && !st._saatSet) { st.run = D.latest; st._saatSet = true; VCACHE.key = null; }
+  if (f !== "simulasi") areaLayer?.eachLayer(l => l.setStyle?.({ opacity: 0.35 })); else areaLayer?.eachLayer(l => l.setStyle?.({ opacity: 1 }));
+  document.querySelectorAll(".phases button").forEach(b => b.setAttribute("aria-selected", String(b.dataset.fase === f)));
+  if (push) try { history.replaceState(null, "", "#" + f); } catch (e) {}
+  if (map) { refreshMap(); renderPanel(); renderInfo(); }
+}
+document.querySelectorAll(".phases button").forEach(b => b.addEventListener("click", () => setFase(b.dataset.fase)));
+
+function chips() {
+  const m = D.meta; const el = document.getElementById("chips");
+  el.innerHTML = `<span class="chip">Hotspot s.d. ${tgl(m.data_hotspot_sampai)}</span>${D.latest ? `<span class="chip">Prakiraan dari data s.d. ${tgl(D.latest)}</span>` : ""}<span class="chip proto" title="${esc(m.penafian)}">Prototipe riset${m.versi === "internal" ? " · INTERNAL" : ""}</span>`;
+}
+
+// ---- muat ----
+(async function boot() {
+  try {
+    const [meta, grid, sel, prak, prior, hsw, kab, kabR, verifK, kat, pos, batas, hsPts] = await Promise.all([
+      get("meta.json", "json", false), get("grid.geojson", "json", false), get("sel.csv", "csv", false), get("prakiraan.csv"), get("prioritas.csv"),
+      get("hotspot_mingguan.csv"), get("kabupaten.geojson", "json"), get("kabupaten_ringkas.csv"), get("verifikasi_kabupaten.csv"),
+      get("kategori_musim.csv"), get("pos.csv"), get("batas.geojson", "json"), get("hotspot_terakhir.geojson", "json")]);
+    D.meta = meta; D.grid = grid; D.cells = sel; D.sel = new Map(sel.map(r => [r.cell, r])); D.kabR = kabR; D.verif = verifK; D.kategori = kat; D.pos = pos || [];
+    D.batas = batas; D.hsPts = hsPts; D.kabGeo = kab;
+    D.baCol = Object.keys(sel[0]).find(k => k.startsWith("terbakar_km2_")) || "terbakar_km2";
+    D.hasGambut = "gambut_frac" in sel[0];
+    D.posAsumsi = (pos || []).some(p => String(p.asumsi).toLowerCase() === "true");
+    D.prak = new Map(); for (const r of prak || []) { if (!D.prak.has(r.data_sampai)) D.prak.set(r.data_sampai, new Map()); D.prak.get(r.data_sampai).set(r.cell, r); }
+    D.priorIdx = new Map(); for (const r of prior || []) { const k = r.data_sampai + "|" + r.h; if (!D.priorIdx.has(k)) D.priorIdx.set(k, new Map()); D.priorIdx.get(k).set(r.cell, r.kelas); }
+    D.hsWeek = new Map(); for (const r of hsw || []) if ((r.n_modis || 0) > 0) { if (!D.hsWeek.has(r.minggu)) D.hsWeek.set(r.minggu, new Set()); D.hsWeek.get(r.minggu).add(r.cell); }
+    D.latest = runList().pop() || null; st.run = D.latest; if (st.run && !hList().includes(st.h)) st.h = hList()[0];
+    chips();
+    initMap();
+    const f = (location.hash || "#pra").slice(1); setFase(f, false);
+  } catch (e) {
+    panel.innerHTML = `<p class="err">Data dashboard tidak terbaca: ${esc(e.message)}.</p><p class="note">Pastikan folder data/ hasil s11_dashboard.py berada di samping index.html.</p>`;
+    console.error(e);
+  }
+})();
+
+// tema berubah -> warna & peta dasar ikut
+const mq = matchMedia("(prefers-color-scheme: dark)");
+const onTheme = () => { if (!map) return; setTiles(); refreshMap(); };
+mq.addEventListener?.("change", onTheme);
+new MutationObserver(onTheme).observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+</script>
+
+</body>
+</html>
