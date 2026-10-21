@@ -1,0 +1,11 @@
+tahun,terbit,tanggal_terbit,model,prediktor,N_hat,N_lo80,N_hi80,p_bawah,p_normal,p_atas,kategori,batas_bawah,batas_atas,oni,dmi,hujan_mm,sumber_indeks,satuan
+2026,3,1 Mar,terpilih,hujan,12165.13,4542.08,32579.27,0.2412,0.3549,0.4038,Di atas normal,7143.78,14616.16,-0.5,0.33,564.48,resmi,FIRMS MODIS n+h Jul–Okt
+2026,3,1 Mar,utama,oni + dmi,8084.03,2655.12,24609.23,0.4422,0.3133,0.2444,Di bawah normal,7143.78,14616.16,-0.5,0.33,564.48,resmi,FIRMS MODIS n+h Jul–Okt
+2026,4,1 Apr,terpilih,hujan,11157.08,4251.21,29278.55,0.2737,0.3688,0.3574,Normal,7143.78,14616.16,-0.3,0.41,608.18,resmi,FIRMS MODIS n+h Jul–Okt
+2026,4,1 Apr,utama,oni + dmi,7184.27,2431.19,21226.07,0.4973,0.3051,0.1976,Di bawah normal,7143.78,14616.16,-0.3,0.41,608.18,resmi,FIRMS MODIS n+h Jul–Okt
+2026,5,1 Mei,terpilih,dmi + hujan,7946.11,2795.02,22587.03,0.447,0.3288,0.2242,Di bawah normal,7143.78,14616.16,-0.05,0.28,577.62,resmi,FIRMS MODIS n+h Jul–Okt
+2026,5,1 Mei,utama,oni + dmi,7550.89,2736.77,20830.18,0.4715,0.3292,0.1993,Di bawah normal,7143.78,14616.16,-0.05,0.28,577.62,resmi,FIRMS MODIS n+h Jul–Okt
+2026,6,1 Jun,terpilih,dmi + hujan,8470.16,3072.43,23347.65,0.4131,0.3449,0.242,Di bawah normal,7143.78,14616.16,0.28,0.21,609.92,resmi,FIRMS MODIS n+h Jul–Okt
+2026,6,1 Jun,utama,oni + dmi,8632.24,3056.29,24377.74,0.4058,0.3397,0.2545,Di bawah normal,7143.78,14616.16,0.28,0.21,609.92,resmi,FIRMS MODIS n+h Jul–Okt
+2026,7,1 Jul,terpilih,oni + hujan,12764.16,5142.95,31676.83,0.2037,0.3736,0.4227,Di atas normal,7143.78,14616.16,0.7,0.15,519.42,resmi,FIRMS MODIS n+h Jul–Okt
+2026,7,1 Jul,utama,oni + dmi,11588.9,3856.32,34822.62,0.2833,0.3254,0.3913,Di atas normal,7143.78,14616.16,0.7,0.15,519.42,resmi,FIRMS MODIS n+h Jul–Okt

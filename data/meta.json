@@ -1,0 +1,486 @@
+{
+  "judul": "BARA — Basis Risiko Api Kalimantan Barat",
+  "proyek": "bara-kalbar",
+  "versi": "publik",
+  "dibuat": "2026-10-21T11:47:26",
+  "kredit": "Analisis: Manessa 2026",
+  "penafian": "Prototipe riset. Bukan peringatan resmi; rujukan resmi: SiPongi (Kementerian Kehutanan) dan BMKG. Peluang adalah keluaran model statistik pada sel 5 km dan dapat keliru.",
+  "sumber_folder": "python",
+  "tahun": 2026,
+  "data_hotspot_sampai": "2026-09-13",
+  "arsip_firms_sampai": "2026-09-13",
+  "label_hotspot": "FIRMS MODIS/VIIRS n+h s.d. 2026-09-13",
+  "N_REGU": 12,
+  "horizon": [
+    1,
+    2,
+    3,
+    4
+  ],
+  "titik_asal": [
+    {
+      "data_sampai": "2026-07-12",
+      "arsip": true,
+      "sumber_masukan": "SiPongi MODIS M+H",
+      "horizon": {
+        "h1": [
+          "2026-07-13",
+          "2026-07-19"
+        ],
+        "h2": [
+          "2026-07-20",
+          "2026-07-26"
+        ],
+        "h3": [
+          "2026-07-27",
+          "2026-08-02"
+        ],
+        "h4": [
+          "2026-08-03",
+          "2026-08-09"
+        ]
+      }
+    },
+    {
+      "data_sampai": "2026-07-19",
+      "arsip": true,
+      "sumber_masukan": "SiPongi MODIS M+H",
+      "horizon": {
+        "h1": [
+          "2026-07-20",
+          "2026-07-26"
+        ],
+        "h2": [
+          "2026-07-27",
+          "2026-08-02"
+        ],
+        "h3": [
+          "2026-08-03",
+          "2026-08-09"
+        ],
+        "h4": [
+          "2026-08-10",
+          "2026-08-16"
+        ]
+      }
+    },
+    {
+      "data_sampai": "2026-07-26",
+      "arsip": true,
+      "sumber_masukan": "SiPongi MODIS M+H",
+      "horizon": {
+        "h1": [
+          "2026-07-27",
+          "2026-08-02"
+        ],
+        "h2": [
+          "2026-08-03",
+          "2026-08-09"
+        ],
+        "h3": [
+          "2026-08-10",
+          "2026-08-16"
+        ],
+        "h4": [
+          "2026-08-17",
+          "2026-08-23"
+        ]
+      }
+    },
+    {
+      "data_sampai": "2026-08-02",
+      "arsip": true,
+      "sumber_masukan": "SiPongi MODIS M+H",
+      "horizon": {
+        "h1": [
+          "2026-08-03",
+          "2026-08-09"
+        ],
+        "h2": [
+          "2026-08-10",
+          "2026-08-16"
+        ],
+        "h3": [
+          "2026-08-17",
+          "2026-08-23"
+        ],
+        "h4": [
+          "2026-08-24",
+          "2026-08-30"
+        ]
+      }
+    },
+    {
+      "data_sampai": "2026-08-09",
+      "arsip": true,
+      "sumber_masukan": "SiPongi MODIS M+H",
+      "horizon": {
+        "h1": [
+          "2026-08-10",
+          "2026-08-16"
+        ],
+        "h2": [
+          "2026-08-17",
+          "2026-08-23"
+        ],
+        "h3": [
+          "2026-08-24",
+          "2026-08-30"
+        ],
+        "h4": [
+          "2026-08-31",
+          "2026-09-06"
+        ]
+      }
+    },
+    {
+      "data_sampai": "2026-08-16",
+      "arsip": true,
+      "sumber_masukan": "SiPongi MODIS M+H",
+      "horizon": {
+        "h1": [
+          "2026-08-17",
+          "2026-08-23"
+        ],
+        "h2": [
+          "2026-08-24",
+          "2026-08-30"
+        ],
+        "h3": [
+          "2026-08-31",
+          "2026-09-06"
+        ],
+        "h4": [
+          "2026-09-07",
+          "2026-09-13"
+        ]
+      }
+    },
+    {
+      "data_sampai": "2026-08-23",
+      "arsip": true,
+      "sumber_masukan": "SiPongi MODIS M+H",
+      "horizon": {
+        "h1": [
+          "2026-08-24",
+          "2026-08-30"
+        ],
+        "h2": [
+          "2026-08-31",
+          "2026-09-06"
+        ],
+        "h3": [
+          "2026-09-07",
+          "2026-09-13"
+        ],
+        "h4": [
+          "2026-09-14",
+          "2026-09-20"
+        ]
+      }
+    },
+    {
+      "data_sampai": "2026-08-30",
+      "arsip": true,
+      "sumber_masukan": "SiPongi MODIS M+H",
+      "horizon": {
+        "h1": [
+          "2026-08-31",
+          "2026-09-06"
+        ],
+        "h2": [
+          "2026-09-07",
+          "2026-09-13"
+        ],
+        "h3": [
+          "2026-09-14",
+          "2026-09-20"
+        ],
+        "h4": [
+          "2026-09-21",
+          "2026-09-27"
+        ]
+      }
+    },
+    {
+      "data_sampai": "2026-09-06",
+      "arsip": true,
+      "sumber_masukan": "SiPongi MODIS M+H",
+      "horizon": {
+        "h1": [
+          "2026-09-07",
+          "2026-09-13"
+        ],
+        "h2": [
+          "2026-09-14",
+          "2026-09-20"
+        ],
+        "h3": [
+          "2026-09-21",
+          "2026-09-27"
+        ],
+        "h4": [
+          "2026-09-28",
+          "2026-10-04"
+        ]
+      }
+    },
+    {
+      "data_sampai": "2026-09-13",
+      "arsip": true,
+      "sumber_masukan": "SiPongi MODIS M+H",
+      "horizon": {
+        "h1": [
+          "2026-09-14",
+          "2026-09-20"
+        ],
+        "h2": [
+          "2026-09-21",
+          "2026-09-27"
+        ],
+        "h3": [
+          "2026-09-28",
+          "2026-10-04"
+        ],
+        "h4": [
+          "2026-10-05",
+          "2026-10-11"
+        ]
+      }
+    },
+    {
+      "data_sampai": "2026-09-20",
+      "arsip": true,
+      "sumber_masukan": "SiPongi MODIS M+H",
+      "horizon": {
+        "h1": [
+          "2026-09-21",
+          "2026-09-27"
+        ],
+        "h2": [
+          "2026-09-28",
+          "2026-10-04"
+        ],
+        "h3": [
+          "2026-10-05",
+          "2026-10-11"
+        ],
+        "h4": [
+          "2026-10-12",
+          "2026-10-18"
+        ]
+      }
+    },
+    {
+      "data_sampai": "2026-09-27",
+      "arsip": true,
+      "sumber_masukan": "SiPongi MODIS M+H",
+      "horizon": {
+        "h1": [
+          "2026-09-28",
+          "2026-10-04"
+        ],
+        "h2": [
+          "2026-10-05",
+          "2026-10-11"
+        ],
+        "h3": [
+          "2026-10-12",
+          "2026-10-18"
+        ],
+        "h4": [
+          "2026-10-19",
+          "2026-10-25"
+        ]
+      }
+    },
+    {
+      "data_sampai": "2026-10-04",
+      "arsip": true,
+      "sumber_masukan": "SiPongi MODIS M+H",
+      "horizon": {
+        "h1": [
+          "2026-10-05",
+          "2026-10-11"
+        ],
+        "h2": [
+          "2026-10-12",
+          "2026-10-18"
+        ],
+        "h3": [
+          "2026-10-19",
+          "2026-10-25"
+        ],
+        "h4": [
+          "2026-10-26",
+          "2026-11-01"
+        ]
+      }
+    },
+    {
+      "data_sampai": "2026-10-11",
+      "arsip": true,
+      "sumber_masukan": "SiPongi MODIS M+H",
+      "horizon": {
+        "h1": [
+          "2026-10-12",
+          "2026-10-18"
+        ],
+        "h2": [
+          "2026-10-19",
+          "2026-10-25"
+        ],
+        "h3": [
+          "2026-10-26",
+          "2026-11-01"
+        ],
+        "h4": [
+          "2026-11-02",
+          "2026-11-08"
+        ]
+      }
+    }
+  ],
+  "izin_publik": {
+    "sipongi_titik": false,
+    "kph": false,
+    "kawasan_hutan": false,
+    "gambut_khg": false
+  },
+  "crs": "EPSG:4326 (WGS84); sel 5 km dari UTM 49S",
+  "lapisan": [
+    {
+      "id": "grid",
+      "berkas": "grid.geojson",
+      "fase": "dasar",
+      "status": "DATA",
+      "sumber": "Grid 5 km UTM 49S (tahap 01)",
+      "keterangan": ""
+    },
+    {
+      "id": "kabupaten",
+      "berkas": "kabupaten.geojson",
+      "fase": "dasar",
+      "status": "DATA",
+      "sumber": "Batas desa/kabupaten 2016 (diagregasi)",
+      "keterangan": ""
+    },
+    {
+      "id": "rezim",
+      "berkas": "sel.csv:rezim",
+      "fase": "pra",
+      "status": "HASIL",
+      "sumber": "FIRMS MODIS n+h 2003–2025, MCD64A1",
+      "keterangan": "Kronis / Episodik / Jarang (06_1)"
+    },
+    {
+      "id": "musim",
+      "berkas": "sel.csv:p_musim",
+      "fase": "pra",
+      "status": "HASIL",
+      "sumber": "FIRMS + ONI/DMI/CHIRPS",
+      "keterangan": "peluang musiman per sel (06_2)"
+    },
+    {
+      "id": "bivariat",
+      "berkas": "sel.csv:k",
+      "fase": "pra",
+      "status": "HASIL",
+      "sumber": "06_3",
+      "keterangan": "keterpaparan = permukiman saja (gambut disaring dari versi publik)"
+    },
+    {
+      "id": "titik_buta",
+      "berkas": "sel.csv:titik_buta",
+      "fase": "pra",
+      "status": "ASUMSI",
+      "sumber": "06d",
+      "keterangan": "pos Daops = asumsi 1 pos per kabupaten"
+    },
+    {
+      "id": "terbakar",
+      "berkas": "sel.csv:terbakar_km2_2026",
+      "fase": "pasca",
+      "status": "DATA",
+      "sumber": "MODIS MCD64A1",
+      "keterangan": "luas terbakar tahun berjalan; bulan terakhir bisa belum terbit"
+    },
+    {
+      "id": "prakiraan",
+      "berkas": "prakiraan.csv",
+      "fase": "saat",
+      "status": "HASIL",
+      "sumber": "XGBoost dua komponen (07), dilatih FIRMS MODIS",
+      "keterangan": "14 titik asal; peluang terkalibrasi p_h1..p_h4"
+    },
+    {
+      "id": "prioritas",
+      "berkas": "prioritas.csv",
+      "fase": "saat",
+      "status": "HASIL",
+      "sumber": "07",
+      "keterangan": "padamkan = N_REGU 12 sel teratas yang sedang terbakar; awasi = zona penyulutan baru"
+    },
+    {
+      "id": "hotspot",
+      "berkas": "hotspot_mingguan.csv, hotspot_terakhir.geojson",
+      "fase": "saat",
+      "status": "DATA",
+      "sumber": "FIRMS MODIS/VIIRS n+h s.d. 2026-09-13",
+      "keterangan": "hitungan per sel-minggu 2026; titik 4 minggu terakhir s.d. 2026-09-13"
+    },
+    {
+      "id": "verifikasi",
+      "berkas": "verifikasi_kabupaten.csv",
+      "fase": "pasca",
+      "status": "HASIL",
+      "sumber": "prakiraan beku vs FIRMS MODIS/VIIRS n+h s.d. 2026-09-13",
+      "keterangan": "tangkapan sel teramati oleh 10% sel peluang tertinggi, per minggu target yang sudah teramati"
+    },
+    {
+      "id": "kab_ringkas",
+      "berkas": "kabupaten_ringkas.csv",
+      "fase": "pra",
+      "status": "HASIL",
+      "sumber": "06 + 08 (agregasi sel)",
+      "keterangan": "E = jumlah p_musim × luas"
+    },
+    {
+      "id": "kategori_musim",
+      "berkas": "kategori_musim.csv",
+      "fase": "pra",
+      "status": "HASIL",
+      "sumber": "06_2 (ONI, DMI, CHIRPS)",
+      "keterangan": "prakiraan musiman tersier tingkat provinsi"
+    },
+    {
+      "id": "pos",
+      "berkas": "pos.csv",
+      "fase": "pra",
+      "status": "ASUMSI",
+      "sumber": "06d",
+      "keterangan": ""
+    }
+  ],
+  "skenario": [
+    {
+      "id": "area_penting",
+      "status": "HASIL",
+      "cara": "Pengguna menggambar poligon; E = jumlah p × luas sel di dalam poligon (di peramban, dari sel.csv / prakiraan.csv)."
+    },
+    {
+      "id": "sudah_diaksi",
+      "status": "HASIL",
+      "cara": "Sel yang ditandai sudah ditangani dikeluarkan dari daftar padamkan; 12 regu bergeser ke sel berikutnya menurut p_h1 (di peramban). Efek ke peluang minggu berikutnya TIDAK dimodelkan."
+    },
+    {
+      "id": "pembasahan",
+      "status": "ILUSTRASI",
+      "cara": "p' = p × (1 − r) pada sel bergambut yang dipilih, r dari slider (asumsi). Model belum memuat TMAT/sekat kanal; menjadi HASIL bila data TMAT BRGM dan lokasi sekat kanal tersedia."
+    }
+  ],
+  "catatan": [
+    "Prakiraan publik hanya titik asal yang minggu h1-nya sudah selesai (tunda 1 minggu).",
+    "Model dilatih dengan target FIRMS MODIS; masukan minggu terakhir bisa memakai SiPongi (lihat sumber_masukan)."
+  ]
+}

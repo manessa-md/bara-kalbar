@@ -1,0 +1,101 @@
+{
+  "versi": "publik",
+  "dibuat": "2026-10-21T11:47:26",
+  "berkas": [
+    {
+      "berkas": "README.md",
+      "bytes": 1990,
+      "md5": "995dd62f8d8efafe3516d487aeb07db9"
+    },
+    {
+      "berkas": "batas.geojson",
+      "bytes": 63967,
+      "md5": "8a95ab36c3c9caccdbb70f5ec5a82d78"
+    },
+    {
+      "berkas": "grid.geojson",
+      "bytes": 1225925,
+      "md5": "71da1d13a3774e324e150d38ee2ac21c"
+    },
+    {
+      "berkas": "hotspot_mingguan.csv",
+      "bytes": 158300,
+      "md5": "641ec1ee14bed10237787609609ad878"
+    },
+    {
+      "berkas": "hotspot_terakhir.geojson",
+      "bytes": 2408154,
+      "md5": "035e7a5e69d28b5c24a7556ec9baca20"
+    },
+    {
+      "berkas": "kabupaten.geojson",
+      "bytes": 87350,
+      "md5": "df6c0d490d99ac2f3fdf0bb1c45052b2"
+    },
+    {
+      "berkas": "kabupaten_ringkas.csv",
+      "bytes": 588,
+      "md5": "6a6ac69aeb86b5636e82772b227082c6"
+    },
+    {
+      "berkas": "kategori_musim.csv",
+      "bytes": 1730,
+      "md5": "135d2b1d444bdc248f8c9f5abcfd1eac"
+    },
+    {
+      "berkas": "meta.json",
+      "bytes": 11132,
+      "md5": "86fbc45f7de844f4a5c7d818ad4f769d"
+    },
+    {
+      "berkas": "metrik/06_2_skill_per_waktu_tunggu.csv",
+      "bytes": 971,
+      "md5": "c9e95cb1f46541e2d86d34a9f9336898"
+    },
+    {
+      "berkas": "metrik/07_cek_model_vs_pembanding.csv",
+      "bytes": 463,
+      "md5": "f19a36265751aa1af9d46eb6a9108310"
+    },
+    {
+      "berkas": "metrik/07_kalibrasi_brier_ece.csv",
+      "bytes": 343,
+      "md5": "fc35d844650a18ccf44f8b8fbc143db6"
+    },
+    {
+      "berkas": "metrik/07_kinerja_alokasi.csv",
+      "bytes": 1556,
+      "md5": "a6aba66c199f9bb92a76faa925b02fc9"
+    },
+    {
+      "berkas": "metrik/07_metrik_persistensi_vs_baru.csv",
+      "bytes": 5668,
+      "md5": "bce77dfb5b7b23c96b9b5fdc9d60ee0a"
+    },
+    {
+      "berkas": "pos.csv",
+      "bytes": 328,
+      "md5": "29f18ad4d7a3bc438e2e71ef42f2ac62"
+    },
+    {
+      "berkas": "prakiraan.csv",
+      "bytes": 4057810,
+      "md5": "18a4e509d01b52da0d90b7da1060f826"
+    },
+    {
+      "berkas": "prioritas.csv",
+      "bytes": 574073,
+      "md5": "0f3bf0cdf1b53e02bd9611e0e74bef1e"
+    },
+    {
+      "berkas": "sel.csv",
+      "bytes": 951078,
+      "md5": "327bf2053b6939d35e05c733c1d19978"
+    },
+    {
+      "berkas": "verifikasi_kabupaten.csv",
+      "bytes": 12510,
+      "md5": "a948dbbea65f4e2877f6f721b904bd1f"
+    }
+  ]
+}
