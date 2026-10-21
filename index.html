@@ -592,7 +592,7 @@ svg.leaflet-image-layer.leaflet-interactive path {
   --ink: #0b0b0b; --ink2: #52514e; --ink3: #7d7c77;
   --ember: #e2552b; --ember-ink: #b3261e; --ember-soft: #fde4dc;
   --cool: #2a78d6; --ok: #138a5e; --warn: #b07800;
-  --cell0: #e7e5df; --map-bg: #dcdad3; --map-tiles: light; --hs: #c8102e;
+  --cell0: #e7e5df; --map-bg: #dcdad3; --map-tiles: light; --hs: #c8102e; --tile-filter: grayscale(1) contrast(0.85) brightness(1.06);
   --f-body: "Plus Jakarta Sans", "Segoe UI", system-ui, sans-serif;
   --f-mono: "JetBrains Mono", ui-monospace, "Cascadia Mono", Consolas, monospace;
   --r: 10px;
@@ -602,13 +602,13 @@ svg.leaflet-image-layer.leaflet-interactive path {
   --ink: #f2f1ec; --ink2: #bdbab2; --ink3: #8d8a82;
   --ember: #f0713f; --ember-ink: #ff8a5c; --ember-soft: #3a1f16;
   --cool: #5598e7; --ok: #3cc28f; --warn: #e2a72e;
-  --cell0: #2b2a26; --map-bg: #191816; --map-tiles: dark; --hs: #ff6a3d; color-scheme: dark; } }
+  --cell0: #2b2a26; --map-bg: #191816; --map-tiles: dark; --hs: #ff6a3d; --tile-filter: grayscale(1) invert(1) brightness(0.62) contrast(0.95); color-scheme: dark; } }
 :root[data-theme="dark"] {
   --bg: #121110; --surface: #1b1a18; --sunk: #24231f; --line: #33312c;
   --ink: #f2f1ec; --ink2: #bdbab2; --ink3: #8d8a82;
   --ember: #f0713f; --ember-ink: #ff8a5c; --ember-soft: #3a1f16;
   --cool: #5598e7; --ok: #3cc28f; --warn: #e2a72e;
-  --cell0: #2b2a26; --map-bg: #191816; --map-tiles: dark; --hs: #ff6a3d; color-scheme: dark; }
+  --cell0: #2b2a26; --map-bg: #191816; --map-tiles: dark; --hs: #ff6a3d; --tile-filter: grayscale(1) invert(1) brightness(0.62) contrast(0.95); color-scheme: dark; }
 
 *, *::before, *::after { box-sizing: border-box; }
 [hidden] { display: none !important; }
@@ -726,6 +726,7 @@ input[type="range"] { width: 100%; accent-color: var(--warn); }
 
 /* Leaflet menyesuaikan tema */
 .leaflet-container { font-family: var(--f-body); background: var(--map-bg); }
+.leaflet-tile-pane { filter: var(--tile-filter); opacity: 0.8; }
 .leaflet-bar a, .leaflet-bar a:hover { background: var(--surface); color: var(--ink); border-bottom-color: var(--line); }
 .leaflet-control-attribution { background: color-mix(in srgb, var(--surface) 82%, transparent) !important; color: var(--ink2); }
 .leaflet-control-attribution a { color: var(--ink2); }
@@ -848,8 +849,8 @@ const cellLayer = new Map();
 function isDark() { return css("--map-tiles") === "dark"; }
 function setTiles() {
   if (tiles) map.removeLayer(tiles);
-  tiles = L.tileLayer(`https://{s}.basemaps.cartocdn.com/${isDark() ? "dark_nolabels" : "light_nolabels"}/{z}/{x}/{y}{r}.png`, {
-    subdomains: "abcd", maxZoom: 14, attribution: '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions" target="_blank" rel="noopener">CARTO</a>' });
+  tiles = L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    maxZoom: 13, attribution: '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> kontributor' });
   let fail = 0;
   tiles.on("tileerror", () => { if (++fail === 3) { map.removeLayer(tiles); tiles = null;
     note("Peta dasar tidak dimuat di pratinjau ini; di GitHub Pages peta dasar tampil.", false, 6000); } });
